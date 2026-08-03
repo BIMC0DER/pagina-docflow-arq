@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocFlow ARQ — a documentação do Revit no automático | BIM Coder</title>
+  <meta name="description" content="Plugin nativo para Revit que entrega a documentação inteira: cotas de paredes, famílias, ambientes, pisos e forros, mais vistas, pranchas e tags. Entre na lista de espera.">
+  <meta property="og:title" content="DocFlow ARQ — a documentação do Revit no automático">
+  <meta property="og:description" content="Cotas, vistas, pranchas e tags automáticas dentro do Revit. Entre na lista de espera do lançamento.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ══ Header ══ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#topo">
+        <span class="brand-mark">DF</span>
+        <span class="brand-text">DocFlow <strong>ARQ</strong></span>
+      </a>
+      <a class="btn btn-ghost btn-sm" href="#lista">Entrar na lista</a>
+    </div>
+  </header>
+
+  <main id="topo">
+
+    <!-- ══ Hero ══ -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="pill">Lançamento em breve · lista de espera aberta</span>
+          <h1>A parte mais chata do Revit é a <span class="grad">documentação</span>. O DocFlow ARQ faz ela por você.</h1>
+          <p class="lead">
+            Um plugin nativo, com aba própria na ribbon, que entrega a documentação
+            inteira: cotas de paredes, famílias, ambientes, pisos e forros, mais
+            vistas, pranchas e tags automáticas.
+          </p>
+
+          <form class="hero-form" novalidate>
+            <div class="field-row">
+              <input type="text" name="nome" placeholder="Seu nome" autocomplete="name" required>
+              <input type="email" name="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
+            </div>
+            <input type="tel" name="telefone" placeholder="WhatsApp com DDD" autocomplete="tel" required>
+            <button type="submit" class="btn btn-primary btn-block">Entrar na lista de espera</button>
+            <p class="form-note">
+              Sem custo e sem compromisso. Você entra na lista e é avisado primeiro
+              quando o DocFlow ARQ abrir.
+            </p>
+            <p class="form-msg" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <!-- Espelho da ribbon real do plugin -->
+        <aside class="ribbon-mock reveal" aria-label="Aba DocFlowARQ dentro do Revit">
+          <div class="ribbon-tab">DocFlowARQ</div>
+          <div class="ribbon-body">
+            <div class="ribbon-panel">
+              <div class="ribbon-items">
+                <span class="rb">Externas</span><span class="rb">Internas</span>
+                <span class="rb">Por Seleção</span><span class="rb">Em Lote</span>
+                <span class="rb">Por Linha</span>
+              </div>
+              <div class="ribbon-label">Cotas de Paredes</div>
+            </div>
+            <div class="ribbon-panel">
+              <div class="ribbon-items">
+                <span class="rb">Por Região</span><span class="rb">Por Ambiente</span>
+                <span class="rb">Por Linha</span>
+              </div>
+              <div class="ribbon-label">Cotas de Famílias</div>
+            </div>
+            <div class="ribbon-panel">
+              <div class="ribbon-items">
+                <span class="rb">Por Ambiente</span>
+                <span class="rb">Pisos</span><span class="rb">Forros</span>
+              </div>
+              <div class="ribbon-label">Ambientes e Contornos</div>
+            </div>
+            <div class="ribbon-panel">
+              <div class="ribbon-items">
+                <span class="rb">Criar Vistas</span>
+                <span class="rb">Criar Pranchas</span>
+                <span class="rb">Inserir Tags</span>
+              </div>
+              <div class="ribbon-label">Documentação</div>
+            </div>
+          </div>
+          <p class="ribbon-caption">A aba DocFlowARQ dentro do Revit: cada painel é um pedaço da documentação.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ══ Vitrine (coverflow) ══ -->
+    <section class="showcase" id="vitrine">
+      <div class="container">
+        <div class="showcase-head reveal">
+          <h2>Você clica uma vez. <span class="grad">A prancha sai pronta.</span></h2>
+          <p class="showcase-kicker" id="scKicker">Cotas de Paredes · Externas</p>
+        </div>
+
+        <div class="showcase-stage" id="scStage" role="region" aria-roledescription="carrossel" aria-label="Comandos do DocFlow ARQ">
+          <div class="showcase-track" id="scTrack"></div>
+        </div>
+
+        <div class="showcase-controls">
+          <button class="circle-btn" id="scPrev" type="button" aria-label="Comando anterior">‹</button>
+          <p class="showcase-counter"><strong id="scNow">01</strong> / <span id="scTotal">15</span></p>
+          <button class="circle-btn" id="scNext" type="button" aria-label="Próximo comando">›</button>
+        </div>
+        <div class="showcase-progress"><span id="scBar"></span></div>
+        <p class="showcase-hint">Arraste para o lado, use as setas do teclado ou passe o mouse para pausar.</p>
+      </div>
+    </section>
+
+    <!-- ══ O problema ══ -->
+    <section class="section section-tight">
+      <div class="container">
+        <div class="pain-grid">
+          <div class="pain-card reveal">
+            <h3>Cota é trabalho de operário</h3>
+            <p>Clicar face por face, conferir lado, corrigir o afastamento. Uma planta inteira, de novo, toda vez que o projeto muda.</p>
+          </div>
+          <div class="pain-card reveal">
+            <h3>Ninguém cobra por isso</h3>
+            <p>O cliente paga pelo projeto, não pelas horas que você gasta cotando. Cada hora ali sai do seu lucro.</p>
+          </div>
+          <div class="pain-card reveal">
+            <h3>E ainda dá retrabalho</h3>
+            <p>Cota feita como texto solto não acompanha o modelo. Mudou a parede, a prancha mente e alguém descobre na obra.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ Demonstração ══ -->
+    <section class="section section-alt" id="demonstracao">
+      <div class="container container-narrow">
+        <div class="section-head section-head-center reveal">
+          <span class="eyebrow">Ver funcionando</span>
+          <h2>Uma planta inteira documentada</h2>
+          <p class="section-sub">Do modelo cru à prancha cotada, sem cortes na gravação.</p>
+        </div>
+        <div class="demo-frame reveal" data-media="media/demonstracao" data-ratio="16-9" data-label="Vídeo de demonstração"></div>
+      </div>
+    </section>
+
+    <!-- ══ Ferramentas ══ -->
+    <section class="section" id="ferramentas">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">O que o DocFlow ARQ entrega</span>
+          <h2>Da cota à prancha, sem sair do Revit</h2>
+          <p class="section-sub">Você seleciona, o plugin resolve. Todas as cotas nascem associativas, presas à referência real do elemento: mudou o modelo, a cota acompanha.</p>
+        </div>
+
+        <div class="view-switch" role="tablist" aria-label="Modo de visualização">
+          <button class="vs-btn is-active" data-view="grade" role="tab" aria-selected="true" type="button">
+            <span class="vs-ico" aria-hidden="true">▦</span> Grade
+          </button>
+          <button class="vs-btn" data-view="lista" role="tab" aria-selected="false" type="button">
+            <span class="vs-ico" aria-hidden="true">☰</span> Lista
+          </button>
+          <button class="vs-btn" data-view="pilha" role="tab" aria-selected="false" type="button">
+            <span class="vs-ico" aria-hidden="true">▤</span> Pilha
+          </button>
+        </div>
+        <p class="view-hint" id="viewHint">Cinco painéis na ribbon, quinze comandos.</p>
+
+        <div id="toolsView" class="tools-view"></div>
+      </div>
+    </section>
+
+    <!-- ══ Como trabalha ══ -->
+    <section class="section section-alt" id="como">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Como o DocFlow trabalha</span>
+          <h2>Feito para aguentar projeto de verdade</h2>
+        </div>
+        <div class="how-grid">
+          <div class="how reveal">
+            <span class="how-num">01</span>
+            <h4>Cota associativa, nunca texto</h4>
+            <p>Cada cota é presa à referência real do elemento. Se a parede andar, a cota anda junto e o valor continua verdadeiro.</p>
+          </div>
+          <div class="how reveal">
+            <span class="how-num">02</span>
+            <h4>Dentro do Revit, sem exportar nada</h4>
+            <p>Aba própria na ribbon, botão, clique. Não é script solto nem fluxo no Dynamo: é um plugin nativo instalado na máquina.</p>
+          </div>
+          <div class="how reveal">
+            <span class="how-num">03</span>
+            <h4>Desfaz e avisa</h4>
+            <p>Todo comando responde ao Ctrl+Z e diz o que não conseguiu fazer, em vez de falhar calado no meio da prancha.</p>
+          </div>
+          <div class="how reveal">
+            <span class="how-num">04</span>
+            <h4>Configura uma vez</h4>
+            <p>Os padrões do escritório ficam gravados. O próximo projeto já começa cotando do jeito certo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ Galeria ══ -->
+    <section class="section" id="galeria">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Por dentro</span>
+          <h2>O plugin rodando</h2>
+        </div>
+        <div class="gallery">
+          <div class="demo-frame reveal" data-media="media/galeria-1" data-ratio="4-3" data-label="Ribbon do DocFlow ARQ"></div>
+          <div class="demo-frame reveal" data-media="media/galeria-2" data-ratio="4-3" data-label="Janela de configurações"></div>
+          <div class="demo-frame reveal" data-media="media/galeria-3" data-ratio="4-3" data-label="Prancha finalizada"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ Quem faz ══ -->
+    <section class="section section-tight">
+      <div class="container">
+        <div class="author reveal">
+          <div class="author-body">
+            <span class="eyebrow">Quem está construindo</span>
+            <h3>Fellipe · BIM Coder</h3>
+            <p>
+              Engenheiro civil e criador do BIM Coder, canal e escola de automação
+              no Revit para profissionais AEC. O DocFlow ARQ nasceu das mesmas
+              rotinas que eu uso e ensino todo dia: as tarefas que consomem hora
+              de projeto sem entregar valor nenhum.
+            </p>
+            <p class="author-links">
+              <a href="https://www.instagram.com/bimcoder/" target="_blank" rel="noopener">@bimcoder no Instagram</a>
+              <span aria-hidden="true">·</span>
+              <a href="https://www.youtube.com/@bimcoder" target="_blank" rel="noopener">Canal no YouTube</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CTA final ══ -->
+    <section class="section cta-section" id="lista">
+      <div class="container cta-inner">
+        <span class="eyebrow">Lista de espera</span>
+        <h2>Seja avisado primeiro quando o DocFlow ARQ abrir</h2>
+        <p class="section-sub">
+          Deixe seu contato abaixo. Você recebe o aviso de abertura e as condições
+          antes de qualquer anúncio público.
+        </p>
+
+        <form class="cta-form" novalidate>
+          <div class="field-row">
+            <input type="text" name="nome" placeholder="Seu nome" autocomplete="name" required>
+            <input type="email" name="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
+          </div>
+          <input type="tel" name="telefone" placeholder="WhatsApp com DDD" autocomplete="tel" required>
+          <button type="submit" class="btn btn-primary btn-block">Entrar na lista de espera</button>
+          <p class="form-note">Sem custo e sem compromisso.</p>
+          <p class="form-msg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ══ FAQ ══ -->
+    <section class="section section-alt" id="faq">
+      <div class="container container-narrow">
+        <div class="section-head reveal">
+          <span class="eyebrow">Perguntas frequentes</span>
+          <h2>O que costuma ficar na dúvida</h2>
+        </div>
+
+        <details class="faq-item">
+          <summary>O DocFlow ARQ já está à venda?</summary>
+          <div class="faq-body"><p>Ainda não. O plugin está em fase final de testes. A lista de espera existe justamente para avisar quem quer saber primeiro quando ele abrir.</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Quanto vai custar?</summary>
+          <div class="faq-body"><p>O valor ainda não está fechado. Quando estiver, quem está na lista recebe a informação antes de qualquer anúncio público.</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Em quais versões do Revit funciona?</summary>
+          <div class="faq-body"><p>O plugin está sendo validado em mais de uma versão do Revit. A lista final de versões suportadas sai junto com o lançamento.</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Preciso saber programar para usar?</summary>
+          <div class="faq-body"><p>Não. O DocFlow ARQ é uma aba na ribbon do Revit, com botões. Você seleciona os elementos e clica. Não tem script para editar nem fluxo para montar.</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>É a mesma coisa que um fluxo do Dynamo?</summary>
+          <div class="faq-body"><p>Não. É um plugin nativo instalado no Revit, então não depende de abrir o Dynamo, carregar arquivo nem esperar o fluxo rodar. Você clica no botão e o resultado aparece.</p></div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Entrar na lista me obriga a alguma coisa?</summary>
+          <div class="faq-body"><p>Nenhuma. É só um aviso de lançamento. Você pode sair da lista quando quiser.</p></div>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ Footer ══ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <span class="brand-text">DocFlow <strong>ARQ</strong></span>
+        <p class="footer-note">Um produto BIM Coder Tecnologia LTDA</p>
+      </div>
+      <p class="footer-note">
+        <a href="mailto:contato@bimcoder.net">contato@bimcoder.net</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="comandos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
