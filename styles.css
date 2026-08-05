@@ -507,25 +507,6 @@ input[aria-invalid="true"] { border-color: #DC2626; }
 }
 .pain-card h3 { font-size: 17px; margin-bottom: 8px; }
 .pain-card p { color: var(--text-secondary); font-size: 15px; }
-/* ── Como trabalha ──────────────────────────────────────── */
-.how-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
-.how {
-  padding: 26px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border);
-  background: var(--surface-card);
-  box-shadow: var(--shadow-sm);
-}
-.how-num {
-  display: block;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: .1em;
-  color: var(--cyan);
-  margin-bottom: 10px;
-}
-.how h4 { font-size: 17px; margin-bottom: 8px; }
-.how p { color: var(--text-secondary); font-size: 15px; }
 
 /* ── Autor ──────────────────────────────────────────────── */
 .author {
@@ -603,7 +584,7 @@ input[aria-invalid="true"] { border-color: #DC2626; }
 /* ── Responsivo ─────────────────────────────────────────── */
 @media (max-width: 940px) {
   .hero-grid { grid-template-columns: 1fr; gap: 42px; }
-  .pain-grid, .how-grid { grid-template-columns: 1fr; }
+  .pain-grid { grid-template-columns: 1fr; }
   .hero { padding: 52px 0 64px; }
   .section { padding: 66px 0; }
 }
