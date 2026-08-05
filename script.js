@@ -58,15 +58,19 @@ function placeholder(label) {
   return box;
 }
 
-/** Preenche um slot de mídia (vitrine, demo, galeria). */
+/**
+ * Preenche um slot de mídia. Resolve para true quando achou arquivo.
+ * O vídeo nasce pausado: quem manda tocar é o carrossel, para não ter
+ * doze vídeos rodando ao mesmo tempo atrás do card visível.
+ */
 async function fillMedia(container, base, label) {
   container.appendChild(placeholder(label));
   const found = await findMedia(base);
-  if (!found) return;
+  if (!found) return false;
 
   const element = found.kind === 'video'
     ? Object.assign(document.createElement('video'), {
-        src: found.src, autoplay: true, muted: true, loop: true, playsInline: true
+        src: found.src, muted: true, loop: true, playsInline: true, preload: 'metadata'
       })
     : Object.assign(document.createElement('img'), {
         src: found.src, alt: label, loading: 'lazy'
@@ -74,6 +78,7 @@ async function fillMedia(container, base, label) {
 
   container.replaceChildren(element);
   container.classList.add('has-media');
+  return true;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -111,7 +116,14 @@ function initShowcase() {
     track.appendChild(card);
     if (!comando.teaser)
       fillMedia(card.querySelector('.sc-media'), comando.media,
-        `${comando.painel} · ${comando.nome}`);
+        `${comando.painel} · ${comando.nome}`)
+        .then((ok) => {
+          if (!ok) return;
+          // Só com mídia o texto vira legenda sobreposta; sem ela, o card
+          // continua claro e o texto precisa ficar escuro para ser lido.
+          card.classList.add('has-media');
+          syncPlayback();
+        });
   });
 
   const cards = Array.from(track.children);
@@ -135,6 +147,21 @@ function initShowcase() {
     document.getElementById('scKicker').textContent = `${atual.painel} · ${atual.nome}`;
     document.getElementById('scNow').textContent = pad(index + 1);
     document.getElementById('scBar').style.width = `${((index + 1) / total) * 100}%`;
+    syncPlayback();
+  }
+
+  /* Toca o vídeo do card da frente e rebobina os outros. */
+  function syncPlayback() {
+    cards.forEach((card, i) => {
+      const video = card.querySelector('video');
+      if (!video) return;
+      if (i === index) {
+        video.play().catch(() => { /* autoplay bloqueado, tudo bem */ });
+      } else if (!video.paused) {
+        video.pause();
+        video.currentTime = 0;
+      }
+    });
   }
 
   function go(target) {
@@ -154,6 +181,13 @@ function initShowcase() {
 
   stage.addEventListener('mouseenter', () => clearInterval(timer));
   stage.addEventListener('mouseleave', restart);
+
+  // O navegador suspende mídia em aba oculta. Ao voltar, o vídeo do card
+  // da frente ficaria parado se ninguém mandasse tocar de novo.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) clearInterval(timer);
+    else { syncPlayback(); restart(); }
+  });
 
   stage.setAttribute('tabindex', '0');
   stage.addEventListener('keydown', (event) => {

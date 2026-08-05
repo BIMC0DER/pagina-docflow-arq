@@ -6,27 +6,39 @@ sozinho, sem mexer no código.
 
 Aceita **imagem** (`.png`, `.jpg`, `.webp`, `.gif`) ou **vídeo** (`.mp4`,
 `.webm`). Se existir imagem e vídeo com o mesmo nome, o vídeo ganha e toca em
-loop, mudo.
+loop, mudo. Só o vídeo do card da frente toca.
 
-Formato ideal: **4:3 na horizontal**, 1200×900 px, mostrando o antes/depois do
-comando numa planta real.
+Formato: **vertical 9:16**, como os Reels. Os arquivos aqui estão em 540×960.
 
-| arquivo             | comando                          |
-|---------------------|----------------------------------|
-| `paredes-externas`  | Cotas de Paredes · Externas      |
-| `paredes-selecao`   | Cotas de Paredes · Por Seleção   |
-| `paredes-lote`      | Cotas de Paredes · Em Lote       |
-| `familias-regiao`   | Cotas de Famílias · Por Região   |
-| `familias-ambiente` | Cotas de Famílias · Por Ambiente |
-| `ambientes`         | Ambientes e Contornos · Ambientes|
-| `pisos`             | Ambientes e Contornos · Pisos    |
-| `forros`            | Ambientes e Contornos · Forros   |
-| `vistas`            | Documentação · Criar Vistas      |
-| `pranchas`          | Documentação · Criar Pranchas    |
-| `tags`              | Documentação · Inserir Tags      |
-| `configuracoes`     | Configuração · Padrões           |
+| arquivo             | comando                          | situação            |
+|---------------------|----------------------------------|---------------------|
+| `paredes-externas`  | Cotas de Paredes · Externas      | ✅ vídeo            |
+| `paredes-selecao`   | Cotas de Paredes · Por Seleção   | ✅ vídeo            |
+| `paredes-lote`      | Cotas de Paredes · Em Lote       | ✅ vídeo            |
+| `familias-regiao`   | Cotas de Famílias · Por Região   | ✅ vídeo            |
+| `familias-ambiente` | Cotas de Famílias · Por Ambiente | ✅ vídeo            |
+| `ambientes`         | Ambientes e Contornos · Ambientes| ⬜ **falta gravar** |
+| `pisos`             | Ambientes e Contornos · Pisos    | ✅ vídeo            |
+| `forros`            | Ambientes e Contornos · Forros   | ✅ vídeo            |
+| `vistas`            | Documentação · Criar Vistas      | ✅ vídeo            |
+| `pranchas`          | Documentação · Criar Pranchas    | ✅ vídeo            |
+| `tags`              | Documentação · Inserir Tags      | ⬜ **falta gravar** |
+| `configuracoes`     | Configuração · Padrões           | ✅ vídeo            |
 
-Exemplo: `media/paredes-externas.png` ou `media/paredes-externas.mp4`.
+## Como os vídeos chegaram aqui
+
+Os originais ficam em
+`G:\Meu Drive\00. BIM Coder\06. DocFlow\01. DocFlow ARQ\Videos demonstrativos`,
+em 1080×1920 e somando 96 MB. Foram recomprimidos para 540×960 sem áudio,
+o que derruba o conjunto para cerca de 1,4 MB sem perda visível no card.
+
+Para adicionar um vídeo novo:
+
+```bash
+ffmpeg -i "ORIGINAL.mp4" -vf "scale=540:960" -an \
+  -c:v libx264 -preset slow -crf 30 -profile:v main \
+  -pix_fmt yuv420p -movflags +faststart media/NOME.mp4
+```
 
 O último card da vitrine ("E muito mais!") é desenhado só com CSS e não usa
 arquivo nenhum.

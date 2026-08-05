@@ -339,7 +339,7 @@ input[aria-invalid="true"] { border-color: #DC2626; }
 
 .showcase-stage {
   position: relative;
-  height: 430px;
+  height: 500px;
   perspective: 1500px;
   outline: none;
   touch-action: pan-y;
@@ -351,27 +351,44 @@ input[aria-invalid="true"] { border-color: #DC2626; }
   height: 100%;
   transform-style: preserve-3d;
 }
+/* Proporção próxima do 9:16 dos vídeos, para o corte não comer a planta. */
 .sc-card {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 300px;
-  height: 400px;
+  width: 278px;
+  height: 480px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: var(--bg);
   box-shadow: var(--shadow-md);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   transition: transform .5s cubic-bezier(.2,.7,.3,1), opacity .5s ease, box-shadow .3s ease;
   will-change: transform;
   user-select: none;
 }
 .sc-card.is-active { box-shadow: var(--shadow-lg); border-color: var(--cyan-border); }
-.sc-media { flex: 1 1 auto; min-height: 0; background: var(--surface); }
+.sc-media { position: absolute; inset: 0; background: var(--surface); }
 .sc-media img, .sc-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
-.sc-body { padding: 16px 18px 20px; border-top: 1px solid var(--border); }
+
+/* Sem mídia o card é claro e o texto ocupa o rodapé branco. */
+.sc-body {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 16px 18px 20px;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+/* Com mídia o texto vira legenda por cima do vídeo. */
+.sc-card.has-media .sc-body {
+  padding-top: 52px;
+  background: linear-gradient(to top,
+    rgba(6, 10, 16, .94) 0%, rgba(6, 10, 16, .78) 45%, rgba(6, 10, 16, 0) 100%);
+  border-top: none;
+}
+.sc-card.has-media .sc-body h3 { color: #FFFFFF; }
+.sc-card.has-media .sc-body p { color: rgba(255, 255, 255, .82); }
+.sc-card.has-media .sc-painel { color: var(--cyan-bright); }
 .sc-painel {
   display: block;
   font-size: 10.5px;
@@ -596,8 +613,8 @@ input[aria-invalid="true"] { border-color: #DC2626; }
   .author { padding: 24px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 
-  .showcase-stage { height: 380px; }
-  .sc-card { width: 240px; height: 350px; }
+  .showcase-stage { height: 430px; }
+  .sc-card { width: 232px; height: 400px; }
   .sc-teaser h3 { font-size: 22px; }
 }
 
