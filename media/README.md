@@ -17,7 +17,7 @@ Formato: **vertical 9:16**, como os Reels. Os arquivos aqui estão em 540×960.
 | `paredes-lote`      | Cotas de Paredes · Em Lote       | ✅ vídeo            |
 | `familias-regiao`   | Cotas de Famílias · Por Região   | ✅ vídeo            |
 | `familias-ambiente` | Cotas de Famílias · Por Ambiente | ✅ vídeo            |
-| `ambientes`         | Ambientes e Contornos · Ambientes| ⬜ **falta gravar** |
+| `ambientes`         | Ambientes e Contornos · Ambientes| ✅ vídeo            |
 | `pisos`             | Ambientes e Contornos · Pisos    | ✅ vídeo            |
 | `forros`            | Ambientes e Contornos · Forros   | ✅ vídeo            |
 | `vistas`            | Documentação · Criar Vistas      | ✅ vídeo            |
