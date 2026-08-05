@@ -21,9 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initForms();
   initFaq();
   initReveal();
-  initMediaFrames();
   initShowcase();
-  initToolsViews();
 });
 
 /* ═══════════════════════════════════════════════════════════
@@ -78,14 +76,6 @@ async function fillMedia(container, base, label) {
   container.classList.add('has-media');
 }
 
-/** Blocos grandes: demonstração e galeria. */
-function initMediaFrames() {
-  document.querySelectorAll('.demo-frame').forEach((frame) => {
-    frame.classList.add(`ratio-${frame.dataset.ratio || '16-9'}`);
-    fillMedia(frame, frame.dataset.media, frame.dataset.label || 'Mídia');
-  });
-}
-
 /* ═══════════════════════════════════════════════════════════
    Vitrine em coverflow
    ═══════════════════════════════════════════════════════════ */
@@ -103,19 +93,25 @@ function initShowcase() {
 
   COMANDOS.forEach((comando, i) => {
     const card = document.createElement('article');
-    card.className = 'sc-card';
+    card.className = comando.teaser ? 'sc-card sc-card-teaser' : 'sc-card';
     card.dataset.index = String(i);
-    card.innerHTML = `
-      <div class="sc-media"></div>
-      <div class="sc-body">
-        <span class="sc-painel">${escapeHtml(comando.painel)}</span>
-        <h3>${escapeHtml(comando.nome)}</h3>
-        <p>${escapeHtml(comando.exemplo)}</p>
-      </div>`;
+    card.innerHTML = comando.teaser
+      ? `<div class="sc-teaser">
+           <span class="sc-teaser-mark" aria-hidden="true">+</span>
+           <h3>${escapeHtml(comando.nome)}</h3>
+           <p>${escapeHtml(comando.descricao)}</p>
+         </div>`
+      : `<div class="sc-media"></div>
+         <div class="sc-body">
+           <span class="sc-painel">${escapeHtml(comando.painel)}</span>
+           <h3>${escapeHtml(comando.nome)}</h3>
+           <p>${escapeHtml(comando.descricao)}</p>
+         </div>`;
     card.addEventListener('click', () => { if (i !== index) go(i); });
     track.appendChild(card);
-    fillMedia(card.querySelector('.sc-media'), comando.media,
-      `${comando.painel} · ${comando.nome}`);
+    if (!comando.teaser)
+      fillMedia(card.querySelector('.sc-media'), comando.media,
+        `${comando.painel} · ${comando.nome}`);
   });
 
   const cards = Array.from(track.children);
@@ -189,156 +185,6 @@ function initShowcase() {
 
   render();
   restart();
-}
-
-/* ═══════════════════════════════════════════════════════════
-   Ferramentas: Grade · Lista · Pilha
-   ═══════════════════════════════════════════════════════════ */
-
-function initToolsViews() {
-  const host = document.getElementById('toolsView');
-  const hint = document.getElementById('viewHint');
-  if (!host || typeof PAINEIS === 'undefined') return;
-
-  const hints = {
-    grade: 'Cinco painéis na ribbon, quinze comandos.',
-    lista: 'A mesma lista, compacta, para bater o olho.',
-    pilha: 'Arraste ou use as setas para percorrer os painéis.'
-  };
-
-  const views = { grade: renderGrade, lista: renderLista, pilha: renderPilha };
-
-  document.querySelectorAll('.vs-btn').forEach((button) => {
-    button.addEventListener('click', () => {
-      const view = button.dataset.view;
-      document.querySelectorAll('.vs-btn').forEach((other) => {
-        const active = other === button;
-        other.classList.toggle('is-active', active);
-        other.setAttribute('aria-selected', String(active));
-      });
-      hint.textContent = hints[view];
-      host.replaceChildren();
-      host.className = `tools-view view-${view}`;
-      views[view](host);
-    });
-  });
-
-  host.className = 'tools-view view-grade';
-  renderGrade(host);
-}
-
-function renderGrade(host) {
-  PAINEIS.forEach((painel) => {
-    const group = document.createElement('div');
-    group.className = 'tool-group';
-    group.innerHTML = `<h3 class="group-title">${escapeHtml(painel.nome)}</h3>`;
-
-    const grid = document.createElement('div');
-    grid.className = 'tool-grid';
-    painel.comandos.forEach((comando) => {
-      const card = document.createElement('article');
-      card.className = 'tool' + (painel.comandos.length === 1 ? ' tool-wide' : '');
-      card.innerHTML =
-        `<h4>${escapeHtml(comando.nome)}</h4><p>${escapeHtml(comando.descricao)}</p>`;
-      grid.appendChild(card);
-    });
-
-    group.appendChild(grid);
-    host.appendChild(group);
-  });
-}
-
-function renderLista(host) {
-  PAINEIS.forEach((painel) => {
-    const group = document.createElement('div');
-    group.className = 'tool-group';
-    group.innerHTML = `<h3 class="group-title">${escapeHtml(painel.nome)}</h3>`;
-
-    const list = document.createElement('ul');
-    list.className = 'tool-list';
-    painel.comandos.forEach((comando) => {
-      const item = document.createElement('li');
-      item.innerHTML =
-        `<strong>${escapeHtml(comando.nome)}</strong><span>${escapeHtml(comando.descricao)}</span>`;
-      list.appendChild(item);
-    });
-
-    group.appendChild(list);
-    host.appendChild(group);
-  });
-}
-
-function renderPilha(host) {
-  const total = PAINEIS.length;
-  let index = 0;
-
-  host.innerHTML = `
-    <div class="stack" id="stackBox"></div>
-    <div class="showcase-controls">
-      <button class="circle-btn" id="stPrev" type="button" aria-label="Painel anterior">‹</button>
-      <p class="showcase-counter"><strong id="stNow">01</strong> / ${pad(total)}</p>
-      <button class="circle-btn" id="stNext" type="button" aria-label="Próximo painel">›</button>
-    </div>
-    <div class="stack-dots" id="stDots"></div>`;
-
-  const box  = host.querySelector('#stackBox');
-  const dots = host.querySelector('#stDots');
-
-  PAINEIS.forEach((painel, i) => {
-    const card = document.createElement('article');
-    card.className = 'stack-card';
-    card.innerHTML = `
-      <div class="stack-top">
-        <span class="stack-index">${pad(i + 1)} / ${pad(total)}</span>
-        <span class="stack-count">${painel.comandos.length} comando${painel.comandos.length > 1 ? 's' : ''}</span>
-      </div>
-      <h3>${escapeHtml(painel.nome)}</h3>
-      <p class="stack-resumo">${escapeHtml(painel.resumo)}</p>
-      <ul class="stack-list">
-        ${painel.comandos.map((comando) =>
-          `<li><strong>${escapeHtml(comando.nome)}</strong> ${escapeHtml(comando.descricao)}</li>`).join('')}
-      </ul>`;
-    box.appendChild(card);
-
-    const dot = document.createElement('button');
-    dot.type = 'button';
-    dot.className = 'stack-dot';
-    dot.setAttribute('aria-label', `Ir para ${painel.nome}`);
-    dot.addEventListener('click', () => go(i));
-    dots.appendChild(dot);
-  });
-
-  const cards = Array.from(box.children);
-
-  function render() {
-    cards.forEach((card, i) => {
-      const offset = (i - index + total) % total;
-      const depth = Math.min(offset, 3);
-      card.style.transform = `translateY(${depth * 14}px) scale(${1 - depth * 0.04})`;
-      card.style.opacity = offset === 0 ? '1' : String(Math.max(0, 0.5 - depth * 0.15));
-      card.style.zIndex = String(50 - depth);
-      card.classList.toggle('is-active', offset === 0);
-    });
-    Array.from(dots.children).forEach((dot, i) =>
-      dot.classList.toggle('is-active', i === index));
-    host.querySelector('#stNow').textContent = pad(index + 1);
-  }
-
-  function go(target) { index = (target + total) % total; render(); }
-
-  host.querySelector('#stPrev').addEventListener('click', () => go(index - 1));
-  host.querySelector('#stNext').addEventListener('click', () => go(index + 1));
-
-  let startX = null;
-  box.addEventListener('pointerdown', (event) => { startX = event.clientX; });
-  box.addEventListener('pointerup', (event) => {
-    if (startX === null) return;
-    const delta = event.clientX - startX;
-    startX = null;
-    if (Math.abs(delta) > 50) go(index + (delta < 0 ? 1 : -1));
-  });
-
-  render();
 }
 
 /* ═══════════════════════════════════════════════════════════
