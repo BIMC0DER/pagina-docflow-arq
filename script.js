@@ -10,6 +10,7 @@ const TABLE_NAME      = 'app_paginadocflow_lista';
 const ORIGEM          = 'pagina-docflow-arq';
 const UTM_STORAGE_KEY = 'bc_docflow_utm_source';
 const UTM_DEFAULT     = 'organico';
+const WHATSAPP_GROUP  = 'https://chat.whatsapp.com/DU1RX8iluZV0FaslXDWngU';
 
 const VIDEO_EXT = ['mp4', 'webm'];
 const IMAGE_EXT = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
@@ -365,15 +366,17 @@ function markInvalid(form, field) {
   });
 }
 
-/* Troca o formulário por uma confirmação no lugar dele: sem página
-   de obrigado, porque não há para onde mandar a pessoa ainda. */
+/* Troca o formulário por uma confirmação que manda a pessoa pro grupo:
+   é lá que saem os avisos e o desconto do lançamento. */
 function succeed(form, nome) {
   const primeiroNome = nome.split(/\s+/)[0];
   form.innerHTML = `
     <div class="success">
       <strong>Pronto, ${escapeHtml(primeiroNome)}. Você está na lista.</strong>
-      <p>Quando o DocFlow ARQ abrir, o aviso chega no seu e-mail e no WhatsApp
-         antes do anúncio público.</p>
+      <p>Pra ficar sabendo de tudo em primeira mão e garantir o desconto,
+         entra no grupo do WhatsApp:</p>
+      <a class="btn btn-primary btn-block" href="${WHATSAPP_GROUP}"
+         target="_blank" rel="noopener">Entrar no grupo do WhatsApp</a>
     </div>`;
 }
 

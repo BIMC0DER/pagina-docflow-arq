@@ -215,6 +215,7 @@ input[aria-invalid="true"] { border-color: #DC2626; }
 }
 .success strong { display: block; font-size: 18px; color: var(--cyan); margin-bottom: 8px; }
 .success p { color: var(--text-secondary); font-size: 15px; }
+.success .btn { margin-top: 14px; }
 
 .form-note { font-size: 13px; color: var(--text-muted); }
 .form-msg { font-size: 14px; }
