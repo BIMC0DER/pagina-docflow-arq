@@ -328,6 +328,14 @@ async function handleSubmit(event) {
       throw new Error(`Supabase ${response.status}: ${body}`);
     }
 
+    /* ManyChat entra depois do Supabase e sem await: se a API cair,
+       o lead já está salvo e a confirmação não pode travar por isso. */
+    fetch('/api/manychat-lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome: data.nome, email: data.email, telefone: data.telefone })
+    }).catch(() => {});
+
     succeed(form, data.nome);
   } catch (error) {
     console.error(error);
