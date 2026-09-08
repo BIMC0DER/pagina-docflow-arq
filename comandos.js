@@ -1,86 +1,109 @@
 /* =============================================================
-   Comandos disponíveis no DocFlow ARQ que aparecem na vitrine.
-   O campo media aponta para o nome-base em /media. Quando o vídeo
-   ainda não existe, a vitrine usa o ícone oficial e informa que a
-   demonstração será adicionada depois.
+   Comandos do DocFlow ARQ que aparecem na vitrine
+   Recorte de apresentação: nem todo comando da ribbon entra aqui.
+   `media` é o nome do arquivo em /media, SEM extensão: a página
+   procura vídeo primeiro, depois imagem, e cai no espaço
+   reservado enquanto nenhum dos dois existir.
    ============================================================= */
 
 const PAINEIS = [
   {
     nome: 'Cotas de Paredes',
     comandos: [
-      { nome: 'Externas', media: 'media/paredes-externas', icon: 'media/tool-icons/icon-ParedesExternas.dark.png', descricao: 'Detecta o perímetro e cota as fachadas pelo lado externo.' },
-      { nome: 'Internas', media: 'media/paredes-internas', icon: 'media/tool-icons/icon-ParedesInternas.dark.png', descricao: 'Destaca as paredes internas e cota as paredes cruzadas pela linha indicada.' },
-      { nome: 'Por Seleção', media: 'media/paredes-selecao', icon: 'media/tool-icons/icon-ParedesSelecao.dark.png', descricao: 'Cota paredes clique a clique e permite alternar o lado.' },
-      { nome: 'Em Lote', media: 'media/paredes-lote', icon: 'media/tool-icons/icon-ParedesLote.dark.png', descricao: 'Cota várias paredes de uma vez e permite revisar o lado das cotas.' }
+      {
+        nome: 'Externas',
+        media: 'media/paredes-externas',
+        descricao: 'Detecta o perímetro e cota as fachadas pelo lado externo.'
+      },
+      {
+        nome: 'Por Seleção',
+        media: 'media/paredes-selecao',
+        descricao: 'Cota paredes clique a clique. Clique de novo para alternar o lado.'
+      },
+      {
+        nome: 'Em Lote',
+        media: 'media/paredes-lote',
+        descricao: 'Cota várias paredes de uma vez e ainda deixa revisar o lado de cada cota.'
+      }
     ]
   },
   {
     nome: 'Cotas de Famílias',
     comandos: [
-      { nome: 'Por Região', media: 'media/familias-regiao', icon: 'media/tool-icons/icon-FamiliasRegiao.dark.png', descricao: 'Seleciona uma região, agrupa as famílias e cria cotas nos eixos com espalhamento.' },
-      { nome: 'Por Ambiente', media: 'media/familias-ambiente', icon: 'media/tool-icons/icon-FamiliasAmbiente.dark.png', descricao: 'Seleciona ambientes e cota as famílias contidas neles.' }
+      {
+        nome: 'Por Região',
+        media: 'media/familias-regiao',
+        descricao: 'Seleciona uma região, agrupa as famílias e cria as cotas nos eixos, separando o que está espalhado.'
+      },
+      {
+        nome: 'Por Ambiente',
+        media: 'media/familias-ambiente',
+        descricao: 'Seleciona os ambientes e cota as famílias contidas em cada um.'
+      }
     ]
   },
   {
-    nome: 'Cotas de Ambientes',
+    nome: 'Ambientes e Contornos',
     comandos: [
-      { nome: 'Por Ambiente', media: 'media/ambientes', icon: 'media/tool-icons/icon-CotaAmbientes.dark.png', descricao: 'Gera cotas horizontais e verticais separadas para cada ambiente.' }
-    ]
-  },
-  {
-    nome: 'Cotas de Contorno',
-    comandos: [
-      { nome: 'Pisos', media: 'media/pisos', icon: 'media/tool-icons/icon-CotaPisos.dark.png', descricao: 'Cota os segmentos retos do contorno dos pisos selecionados.' },
-      { nome: 'Forros', media: 'media/forros', icon: 'media/tool-icons/icon-CotaForros.dark.png', descricao: 'Cota os segmentos retos do contorno dos forros selecionados.' }
-    ]
-  },
-  {
-    nome: 'Cotas de Cortes',
-    comandos: [
-      { nome: 'Por Linha', media: 'media/cortes-por-linha', icon: 'media/tool-icons/icon-Cortes.dark.png', descricao: 'Em corte ou elevação, desenhe uma linha e cote o que ela atravessa.' }
-    ]
-  },
-  {
-    nome: 'Tags',
-    comandos: [
-      { nome: 'Portas', media: 'media/tags-portas', icon: 'media/tool-icons/icon-TagPortas.dark.png', descricao: 'Insere a tag de todas as portas da vista ou somente das selecionadas.' },
-      { nome: 'Janelas', media: 'media/tags-janelas', icon: 'media/tool-icons/icon-TagJanelas.dark.png', descricao: 'Insere a tag de todas as janelas da vista ou somente das selecionadas.' },
-      { nome: 'Paredes', media: 'media/tags-paredes', icon: 'media/tool-icons/icon-TagParedes.dark.png', descricao: 'Insere a tag de todas as paredes da vista ou somente das selecionadas.' },
-      { nome: 'Ambientes', media: 'media/tags-ambientes', icon: 'media/tool-icons/icon-TagAmbientes.dark.png', descricao: 'Insere a tag de todos os ambientes da planta ou somente dos selecionados.' },
-      { nome: 'Forros', media: 'media/tags-forros', icon: 'media/tool-icons/icon-TagForros.dark.png', descricao: 'Insere a tag de todos os forros da vista ou somente dos selecionados.' },
-      { nome: 'Nível dos Ambientes', media: 'media/nivel-ambientes', icon: 'media/tool-icons/icon-NivelAmbientes.dark.png', descricao: 'Insere a cota de elevação no piso de cada ambiente da planta.' }
-    ]
-  },
-  {
-    nome: 'Pranchas',
-    comandos: [
-      { nome: 'Gerador de Pranchas', media: 'media/pranchas', icon: 'media/tool-icons/icon-CriarPranchas.dark.png', descricao: 'Transforma os cartões organizados com vistas em novas pranchas.' },
-      { nome: 'Exportar Pranchas', media: 'media/exportar-pranchas', icon: 'media/tool-icons/icon-ExportarPranchas.dark.png', descricao: 'Exporta pranchas para PDF e DWG com presets, ordenação e nomenclatura personalizada.' }
+      {
+        nome: 'Cota Ambientes',
+        media: 'media/ambientes',
+        descricao: 'Gera as cotas horizontais e verticais de cada ambiente, separadas ambiente por ambiente.'
+      },
+      {
+        nome: 'Cota Pisos',
+        media: 'media/pisos',
+        descricao: 'Cota o contorno dos pisos selecionados, unindo lados retos e ignorando degraus de ruído.'
+      },
+      {
+        nome: 'Cota Forros',
+        media: 'media/forros',
+        descricao: 'O mesmo contorno automático, aplicado aos forros da planta.'
+      }
     ]
   },
   {
     nome: 'Documentação',
     comandos: [
-      { nome: 'Vistas por Ambiente', media: 'media/vistas', icon: 'media/tool-icons/icon-CriarVistas.dark.png', descricao: 'Cria planta 2D, vista 3D e cortes longitudinal e transversal para os ambientes selecionados.' }
+      {
+        nome: 'Criar Vistas',
+        media: 'media/vistas',
+        descricao: 'Vistas por pavimento, por ambiente, por região, além de cortes e elevações, criadas no padrão do seu escritório.'
+      },
+      {
+        nome: 'Criar Pranchas',
+        media: 'media/pranchas',
+        descricao: 'Criação e organização das pranchas, com as vistas já posicionadas.'
+      },
+      {
+        nome: 'Inserir Tags',
+        media: 'media/tags',
+        descricao: 'Tags de ambientes, esquadrias e demais elementos arquitetônicos.'
+      }
     ]
   },
   {
-    nome: 'Configurações',
+    nome: 'Configuração',
     comandos: [
-      { nome: 'Cotas', media: 'media/configuracoes', icon: 'media/tool-icons/icon-ConfigCotas.dark.png', descricao: 'Centraliza tipos de cota, afastamentos, textos e padrões usados pelos comandos.' },
-      { nome: 'Tags', media: 'media/config-tags', icon: 'media/tool-icons/icon-ConfigTags.dark.png', descricao: 'Define tipo de tag, orientação e deslocamento para cada categoria.' }
+      {
+        nome: 'Padrões do escritório',
+        media: 'media/configuracoes',
+        descricao: 'Tipo de cota, afastamentos, folgas de texto e filtros ficam salvos. Configura uma vez, vale para todos os comandos e todos os projetos.'
+      }
     ]
   }
 ];
 
+/* Fecha a vitrine sem prometer nada específico. Não tem mídia: o card
+   é desenhado inteiro pelo CSS. */
 const TEASER = {
   painel: 'Em breve',
   nome: 'E muito mais!',
-  descricao: 'Novas ferramentas continuarão chegando ao DocFlow.',
+  descricao: 'Revelaremos novas ferramentas em breve.',
   teaser: true
 };
 
+/* Lista plana, com o painel embutido — é o que a vitrine consome. */
 const COMANDOS = [
   ...PAINEIS.flatMap((painel) =>
     painel.comandos.map((comando) => ({ ...comando, painel: painel.nome }))),
