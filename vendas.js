@@ -1,7 +1,12 @@
+const STUDENT_VALIDATION = {
+  endpoint: "https://rfvcoqvbmzdchtbndjkb.supabase.co/functions/v1/validate-student-email",
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJmdmNvcXZibXpkY2h0Ym5kamtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NjcyMzAsImV4cCI6MjA5MTI0MzIzMH0.5F-Ln7mvjhavve7azM6Up2xxHuSs29PeVXS0XVjtIBI"
+};
+
 const CHECKOUTS = {
   mensal: "",
-  anual: "",
-  aluno: ""
+  anual: "https://pay.hotmart.com/H107343223J?off=j0potk7j",
+  aluno: "https://pay.hotmart.com/H107343223J?off=n8h1l3g4"
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,12 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroManifestoTransition();
   initScrollReveals();
   initPageEffects();
-  initConfigVideo();
+  initConfigCarousel();
   initCotasComparison();
   initDemonstrations();
   initConceptEntrance();
   initLaunchStory();
-  initCommandShowcase();
   initCalculator();
   initFaq();
   initStudentPricing();
@@ -242,189 +246,6 @@ function initPageEffects() {
     observer.disconnect();
   });
 }
-function initCommandShowcase() {
-  const track = document.getElementById("salesScTrack");
-  const stage = document.getElementById("salesScStage");
-  const section = document.querySelector(".sales-showcase");
-  if (!track || !stage || !section || typeof COMANDOS === "undefined") return;
-
-  const items = COMANDOS;
-  const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-  const cards = [];
-  let index = 0;
-  let timer = 0;
-  let sectionVisible = false;
-  let startX = null;
-
-  const pad = (value) => String(value).padStart(2, "0");
-  const make = (tag, className, text) => {
-    const node = document.createElement(tag);
-    if (className) node.className = className;
-    if (text) node.textContent = text;
-    return node;
-  };
-
-  items.forEach((item, itemIndex) => {
-    const card = make("article", item.teaser ? "sales-sc-card sales-sc-teaser-card" : "sales-sc-card");
-    card.dataset.index = String(itemIndex);
-
-    if (item.teaser) {
-      const teaser = make("div", "sales-sc-teaser");
-      teaser.append(make("span", "sales-sc-teaser-mark", "+"), make("h3", "", item.nome), make("p", "", item.descricao));
-      card.append(teaser);
-    } else {
-      const media = make("div", "sales-sc-media");
-      const video = document.createElement("video");
-      video.src = item.media + ".mp4";
-      video.muted = true;
-      video.loop = true;
-      video.playsInline = true;
-      video.preload = "metadata";
-      video.setAttribute("aria-label", item.painel + " · " + item.nome);
-      media.append(video);
-      card.classList.add("has-media");
-
-      video.addEventListener("error", () => {
-        card.classList.remove("has-media");
-        const empty = make("div", "sales-sc-empty");
-        if (item.icon) {
-          const icon = document.createElement("img");
-          icon.src = item.icon;
-          icon.alt = "";
-          icon.width = 96;
-          icon.height = 96;
-          icon.addEventListener("error", () => icon.replaceWith(make("span", "", "D")));
-          empty.append(icon);
-        } else {
-          empty.append(make("span", "", "D"));
-        }
-        empty.append(make("small", "", "Demonstração em breve"));
-        media.replaceChildren(empty);
-      });
-
-      const body = make("div", "sales-sc-body");
-      body.append(make("span", "sales-sc-panel", item.painel), make("h3", "", item.nome), make("p", "", item.descricao));
-      card.append(media, body);
-    }
-
-    card.addEventListener("click", () => {
-      if (itemIndex !== index) go(itemIndex);
-    });
-    track.append(card);
-    cards.push(card);
-  });
-
-  document.getElementById("salesScTotal").textContent = pad(items.length);
-
-  const syncPlayback = () => {
-    cards.forEach((card, cardIndex) => {
-      const video = card.querySelector("video");
-      if (!video) return;
-      if (cardIndex === index && sectionVisible && !document.hidden && !reducedMotion?.matches) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-        if (cardIndex !== index) video.currentTime = 0;
-      }
-    });
-  };
-
-  const render = () => {
-    const mobile = window.innerWidth < 600;
-    const spacing = mobile ? 88 : 132;
-    const angle = mobile ? -14 : -19;
-
-    cards.forEach((card, cardIndex) => {
-      const offset = cardIndex - index;
-      const distance = Math.min(Math.abs(offset), 4);
-      card.style.transform = "translate(-50%,0) translateX(" + (offset * spacing) + "px) rotateY(" + (offset * angle) + "deg) scale(" + (1 - distance * 0.08) + ")";
-      card.style.opacity = String(Math.max(0, 1 - distance * 0.3));
-      card.style.zIndex = String(50 - distance);
-      card.style.pointerEvents = distance > 3 ? "none" : "auto";
-      card.classList.toggle("is-active", offset === 0);
-      card.setAttribute("aria-hidden", offset === 0 ? "false" : "true");
-      card.inert = offset !== 0;
-    });
-
-    const current = items[index];
-    document.getElementById("salesScKicker").textContent = current.painel + " · " + current.nome;
-    document.getElementById("salesScNow").textContent = pad(index + 1);
-    document.getElementById("salesScBar").style.width = (((index + 1) / items.length) * 100) + "%";
-    syncPlayback();
-  };
-
-  const stop = () => {
-    window.clearInterval(timer);
-    timer = 0;
-  };
-  const restart = () => {
-    stop();
-    if (!sectionVisible || reducedMotion?.matches) return;
-    timer = window.setInterval(() => go(index + 1), 5000);
-  };
-  const go = (target) => {
-    index = (target + items.length) % items.length;
-    render();
-    restart();
-  };
-
-  document.getElementById("salesScPrev").addEventListener("click", () => go(index - 1));
-  document.getElementById("salesScNext").addEventListener("click", () => go(index + 1));
-  stage.addEventListener("mouseenter", stop);
-  stage.addEventListener("mouseleave", restart);
-  stage.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      go(index - 1);
-    }
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
-      go(index + 1);
-    }
-  });
-
-  stage.addEventListener("pointerdown", (event) => {
-    startX = event.clientX;
-    stop();
-    stage.classList.add("is-dragging");
-    stage.setPointerCapture?.(event.pointerId);
-  });
-  stage.addEventListener("pointerup", (event) => {
-    stage.classList.remove("is-dragging");
-    if (startX === null) return;
-    const delta = event.clientX - startX;
-    startX = null;
-    if (Math.abs(delta) > 50) go(index + (delta < 0 ? 1 : -1));
-    else restart();
-  });
-  stage.addEventListener("pointercancel", () => {
-    startX = null;
-    stage.classList.remove("is-dragging");
-    restart();
-  });
-
-  const observer = new IntersectionObserver(([entry]) => {
-    sectionVisible = entry.isIntersecting && entry.intersectionRatio >= 0.2;
-    if (sectionVisible) restart();
-    else stop();
-    syncPlayback();
-  }, { threshold: [0, 0.2] });
-  observer.observe(section);
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stop();
-    else restart();
-    syncPlayback();
-  });
-  reducedMotion?.addEventListener?.("change", () => {
-    if (reducedMotion.matches) stop();
-    else restart();
-    syncPlayback();
-  });
-  window.addEventListener("resize", render);
-  stage.tabIndex = 0;
-  render();
-}
 function initCalculator() {
   const hours = document.getElementById("hours");
   const rate = document.getElementById("rate");
@@ -466,48 +287,136 @@ function initFaq() {
 
 function initStudentPricing() {
   const switcher = document.querySelector("[data-student-switch]");
-  const card = document.querySelector(".pricing-section .price-card");
-  const value = document.querySelector("[data-price-value]");
-  const condition = document.querySelector("[data-price-condition]");
-  const badge = document.querySelector("[data-price-badge]");
-  const checkout = document.querySelector("[data-price-cta]");
-  if (!switcher || !card || !value || !condition || !badge || !checkout) return;
+  const card = document.querySelector("[data-annual-price]");
+  const value = card?.querySelector("[data-price-value]");
+  const cash = card?.querySelector("[data-cash-price]");
+  const condition = card?.querySelector("[data-price-condition]");
+  const badge = card?.querySelector("[data-price-badge]");
+  const badgeNote = card?.querySelector("[data-price-badge-note]");
+  const checkout = card?.querySelector("[data-price-cta]");
+  const dialog = document.getElementById("studentValidationDialog");
+  const form = document.getElementById("studentValidationForm");
+  const emailInput = document.getElementById("studentEmail");
+  const submit = dialog?.querySelector("[data-student-submit]");
+  const status = dialog?.querySelector("[data-student-status]");
+  const support = dialog?.querySelector("[data-student-support]");
+  if (!switcher || !card || !value || !cash || !condition || !badge || !checkout || !dialog || !form || !emailInput || !submit || !status || !support) return;
 
   const options = Array.from(switcher.querySelectorAll("[data-student-option]"));
+  const regularOption = options.find(option => option.dataset.studentOption === "no");
+  const studentOption = options.find(option => option.dataset.studentOption === "yes");
+
   const setStudent = (isStudent) => {
     switcher.dataset.student = isStudent ? "yes" : "no";
-    options.forEach((option) => {
-      option.setAttribute("aria-pressed", String((option.dataset.studentOption === "yes") === isStudent));
-    });
-
-    value.textContent = isStudent ? "497" : "597";
-    condition.textContent = isStudent
-      ? "Desconto de lançamento para aluno BIM Coder: R$ 300 no primeiro ano. Depois, renovação por R$ 797/ano."
-      : "Desconto de lançamento de R$ 200 no primeiro ano. Depois, renovação por R$ 797/ano.";
-    badge.textContent = isStudent ? "Desconto de lançamento · aluno" : "Desconto de lançamento";
+    options.forEach(option => option.setAttribute("aria-pressed", String((option.dataset.studentOption === "yes") === isStudent)));
+    value.textContent = isStudent ? "39,90" : "49,90";
+    cash.textContent = "ou R$ 497 à vista por ano";
+    condition.innerHTML = isStudent ? "<strong>Condição anual exclusiva para aluno BIM Coder.</strong><span>Oferta válida após a confirmação do e-mail.</span>" : "<strong>Preço de fundador garantido.</strong><span>Renove por R$ 497/ano enquanto sua assinatura permanecer ativa.</span>";
+    badge.textContent = isStudent ? "OFERTA ALUNO" : "OFERTA ÚNICA";
+    if (badgeNote) badgeNote.textContent = isStudent ? "CONDIÇÃO EXCLUSIVA BIM CODER" : "DE FUNDADOR";
     checkout.dataset.plan = isStudent ? "aluno" : "anual";
-    checkout.textContent = isStudent
-      ? "Garantir desconto de aluno — R$ 497"
-      : "Garantir desconto de lançamento — R$ 597";
+    checkout.textContent = isStudent ? "Quero o plano de aluno — R$ 39,90/mês" : "Quero o plano anual — R$ 49,90/mês";
     card.classList.toggle("is-student", isStudent);
     card.classList.remove("is-price-changing");
     window.requestAnimationFrame(() => card.classList.add("is-price-changing"));
   };
 
-  options.forEach((option, index) => {
-    option.addEventListener("click", () => setStudent(option.dataset.studentOption === "yes"));
-    option.addEventListener("keydown", (event) => {
-      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-      event.preventDefault();
-      const direction = event.key === "ArrowRight" ? 1 : -1;
-      const next = options[(index + direction + options.length) % options.length];
-      next.focus();
-      setStudent(next.dataset.studentOption === "yes");
-    });
+  const resetDialog = () => {
+    form.reset();
+    emailInput.removeAttribute("aria-invalid");
+    status.textContent = "";
+    status.className = "student-validation-status";
+    support.hidden = true;
+    submit.disabled = false;
+    submit.textContent = "Validar e continuar";
+  };
+  const openDialog = () => {
+    resetDialog();
+    dialog.showModal();
+    window.requestAnimationFrame(() => emailInput.focus());
+  };
+  const closeDialog = () => {
+    dialog.close();
+    setStudent(false);
+  };
+
+  regularOption?.addEventListener("click", () => setStudent(false));
+  studentOption?.addEventListener("click", openDialog);
+  dialog.querySelector(".dialog-close")?.addEventListener("click", closeDialog);
+  dialog.addEventListener("close", () => {
+    if (!dialog.dataset.verified) setStudent(false);
+    delete dialog.dataset.verified;
   });
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const email = emailInput.value.trim().toLowerCase();
+    emailInput.value = email;
+    if (!emailInput.checkValidity()) {
+      emailInput.setAttribute("aria-invalid", "true");
+      status.textContent = "Digite um e-mail válido.";
+      status.className = "student-validation-status is-error";
+      emailInput.focus();
+      return;
+    }
+
+    emailInput.removeAttribute("aria-invalid");
+    submit.disabled = true;
+    submit.textContent = "Verificando...";
+    status.textContent = "Verificando seu e-mail de aluno...";
+    status.className = "student-validation-status";
+    support.hidden = true;
+
+    try {
+      const response = await fetch(STUDENT_VALIDATION.endpoint, {
+        method: "POST",
+        headers: {
+          "apikey": STUDENT_VALIDATION.anonKey,
+          "Authorization": "Bearer " + STUDENT_VALIDATION.anonKey,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || "Falha na validação.");
+
+      if (!result.allowed) {
+        setStudent(false);
+        emailInput.setAttribute("aria-invalid", "true");
+        status.textContent = "E-mail não encontrado na lista de alunos.";
+        status.className = "student-validation-status is-error";
+        support.hidden = false;
+        submit.disabled = false;
+        submit.textContent = "Validar novamente";
+        return;
+      }
+      dialog.dataset.verified = "true";
+      setStudent(true);
+      status.textContent = "E-mail confirmado. Abrindo sua condição de aluno...";
+      status.className = "student-validation-status is-success";
+      window.setTimeout(() => window.location.assign(appendTracking(CHECKOUTS.aluno)), 450);
+    } catch (error) {
+      setStudent(false);
+      status.textContent = "Não foi possível validar agora. Tente novamente ou fale com o suporte.";
+      status.className = "student-validation-status is-error";
+      support.hidden = false;
+      submit.disabled = false;
+      submit.textContent = "Tentar novamente";
+    }
+  });
+
+  const reveal = () => card.classList.add("is-price-revealed");
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) reveal();
+  else {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      reveal();
+      observer.disconnect();
+    }, { threshold: 0.42 });
+    observer.observe(card);
+  }
   setStudent(false);
 }
-
 function initCheckoutLinks() {
   const dialog = document.getElementById("checkoutDialog");
   const closeButtons = dialog
@@ -549,44 +458,51 @@ function appendTracking(url) {
 }
 
 
-function initConfigVideo() {
-  const video = document.getElementById("config-video");
-  if (!video) return;
+function initConfigCarousel() {
+  const carousel = document.querySelector("[data-config-carousel]");
+  if (!carousel) return;
+  const slides = Array.from(carousel.querySelectorAll("[data-config-slide]"));
+  if (slides.length < 2) return;
 
   const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-  const section = video.closest(".honest-section");
-  const syncOrientation = () => {
-    if (!section || !video.videoWidth || !video.videoHeight) return;
-    section.classList.toggle("config-landscape", video.videoWidth > video.videoHeight);
-  };
-  video.addEventListener("loadedmetadata", syncOrientation);
-  if (video.readyState >= 1) syncOrientation();
-
+  let index = 0;
+  let timer = 0;
   let visible = false;
-  const sync = (explicit = false) => {
-    if (!visible || document.hidden || (reducedMotion?.matches && !explicit)) {
-      video.pause();
-      return;
-    }
-    video.play().catch(() => {});
+
+  const show = (nextIndex) => {
+    index = nextIndex % slides.length;
+    slides.forEach((slide, slideIndex) => {
+      const active = slideIndex === index;
+      slide.classList.toggle("is-active", active);
+      slide.setAttribute("aria-hidden", String(!active));
+    });
+  };
+  const stop = () => {
+    window.clearInterval(timer);
+    timer = 0;
+  };
+  const start = () => {
+    stop();
+    if (!visible || document.hidden || reducedMotion?.matches) return;
+    timer = window.setInterval(() => show(index + 1), 3200);
   };
 
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
-      sync();
-    }, { threshold: [0, 0.35] });
-    observer.observe(video);
+      visible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
+      if (visible) start();
+      else stop();
+    }, { threshold: [0, 0.25] });
+    observer.observe(carousel);
   } else {
     visible = true;
-    sync();
+    start();
   }
 
-  video.addEventListener("play", () => sync(true));
-  document.addEventListener("visibilitychange", () => sync());
-  reducedMotion?.addEventListener?.("change", () => sync());
-}
-function initCotasComparison() {
+  document.addEventListener("visibilitychange", start);
+  reducedMotion?.addEventListener?.("change", start);
+  show(0);
+}function initCotasComparison() {
   const videos = Array.from(document.querySelectorAll("[data-comparison-video]"));
   const playback = document.querySelector(".comparison-playback");
   const replay = document.querySelector(".comparison-replay");
@@ -677,8 +593,8 @@ function initDemonstrations() {
   const heroVideo = document.getElementById("hero-demo-video");
   const heroCaption = document.getElementById("hero-demo-caption");
   const heroPanel = document.getElementById("hero-demo-panel");
-  const tabs = Array.from(document.querySelectorAll(".demo-tabs [data-demo-category]"));
-  if (!gallery || !heroVideo || !categories.length) return;
+  const heroTools = document.getElementById("hero-demo-tools");
+  if (!gallery || !heroVideo || !heroCaption || !heroPanel || !heroTools || !categories.length) return;
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const make = (tag, className, text) => {
     const node = document.createElement(tag);
@@ -693,34 +609,79 @@ function initDemonstrations() {
     video.load();
     if (play && !reducedMotion.matches) video.play().catch(() => {});
   };
-  const activateTab = (tab, focus = false) => {
-    const group = categories.find(item => item.id === tab.dataset.demoCategory);
-    if (!group || !group.videos.length) return;
-    tabs.forEach(button => {
-      const active = button === tab;
-      button.setAttribute("aria-selected", String(active));
+
+  const heroGroups = categories.map(group => ({
+    ...group,
+    videos: group.videos.filter(item => !item.id.startsWith("config-"))
+  })).filter(group => group.videos.length);
+
+  const activateHeroItem = (group, item, activeButton, play = true) => {
+    heroTools.querySelectorAll(".demo-command").forEach(button => {
+      const active = button === activeButton;
+      button.setAttribute("aria-pressed", String(active));
       button.tabIndex = active ? 0 : -1;
     });
-    heroPanel.setAttribute("aria-labelledby", tab.id);
     heroPanel.dataset.demoCategory = group.id;
-    const heroDemo = group.heroSrc
-      ? { src: group.heroSrc, title: group.heroTitle || group.title }
-      : group.videos[0];
-    heroCaption.textContent = heroDemo.title;
-    loadVideo(heroVideo, heroDemo, true);
-    if (focus) tab.focus();
+    heroPanel.dataset.demoTool = item.id;
+    heroCaption.textContent = item.title;
+    loadVideo(heroVideo, item, play);
   };
-  tabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => activateTab(tab));
-    tab.addEventListener("keydown", event => {
-      let next;
-      if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
-      if (event.key === "ArrowLeft") next = (index - 1 + tabs.length) % tabs.length;
-      if (event.key === "Home") next = 0;
-      if (event.key === "End") next = tabs.length - 1;
-      if (next !== undefined) { event.preventDefault(); activateTab(tabs[next], true); }
+
+  const renderHeroRibbon = () => {
+    heroTools.replaceChildren();
+    const commands = [];
+    heroGroups.forEach(group => {
+      const panel = make("section", "demo-command-panel");
+      panel.style.setProperty("--panel-command-count", String(group.videos.length));
+      panel.setAttribute("aria-label", group.label);
+      const tools = make("div", "demo-command-panel-tools");
+      const panelLabel = make("span", "demo-command-panel-label", group.label);
+      group.videos.forEach(item => {
+        const button = make("button", "demo-command");
+        button.type = "button";
+        button.setAttribute("aria-pressed", "false");
+        button.tabIndex = -1;
+        button.dataset.demoCategory = group.id;
+        button.dataset.demoTool = item.id;
+        button.title = item.title;
+        const icon = make("img", "demo-command-icon");
+        icon.src = item.icon;
+        icon.alt = "";
+        icon.setAttribute("aria-hidden", "true");
+        const label = make("span", "demo-command-name", item.shortTitle || item.title);
+        const pulse = make("span", "demo-command-pulse");
+        pulse.setAttribute("aria-hidden", "true");
+        button.append(icon, label, pulse);
+        button.addEventListener("click", () => {
+          button.classList.remove("is-clicking");
+          void button.offsetWidth;
+          button.classList.add("is-clicking");
+          window.setTimeout(() => button.classList.remove("is-clicking"), 300);
+          activateHeroItem(group, item, button, true);
+        });
+        tools.append(button);
+        commands.push({ button, group, item });
+      });
+      panel.append(tools, panelLabel);
+      heroTools.append(panel);
     });
-  });
+    commands.forEach((command, index) => {
+      command.button.addEventListener("keydown", event => {
+        if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        let next = index;
+        if (event.key === "ArrowRight") next = (index + 1) % commands.length;
+        if (event.key === "ArrowLeft") next = (index - 1 + commands.length) % commands.length;
+        if (event.key === "Home") next = 0;
+        if (event.key === "End") next = commands.length - 1;
+        const target = commands[next];
+        activateHeroItem(target.group, target.item, target.button, true);
+        target.button.focus();
+      });
+    });
+    if (commands[0]) activateHeroItem(commands[0].group, commands[0].item, commands[0].button, true);
+  };
+
   categories.forEach((group, index) => {
     if (!group.videos.length) return;
     const card = make("article", "tool-demo-card");
@@ -758,6 +719,7 @@ function initDemonstrations() {
     }
     gallery.append(card);
   });
+
   document.querySelectorAll(".hero-demo video, .tool-demo-video").forEach(video => {
     if (video.dataset.errorBound) return;
     video.dataset.errorBound = "true";
@@ -770,10 +732,9 @@ function initDemonstrations() {
     if (reducedMotion.matches) document.querySelectorAll(".hero-demo video, .tool-demo-video").forEach(video => video.pause());
   };
   reducedMotion.addEventListener("change", updateMotion);
-  activateTab(tabs.find(tab => tab.getAttribute("aria-selected") === "true") || tabs[0]);
+  renderHeroRibbon();
   updateMotion();
 }
-
 function initConceptEntrance() {
   const hero = document.querySelector('.concept-hero');
   const theater = document.querySelector('.demo-theater');

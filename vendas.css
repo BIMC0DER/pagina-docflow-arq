@@ -918,3 +918,271 @@ dialog::backdrop{background:rgba(13,17,23,.5)}
 
 .launch-offer-ribbon{pointer-events:none;cursor:default}
 
+
+/* Ribbon interativa: ícones originais dos comandos DocFlow. */
+.demo-command-shell{border-bottom:1px solid #cfd6df;background:#eef1f5}
+.demo-command-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:27px;padding:4px 12px;border-bottom:1px solid #d8dde4;color:#52606f;font-size:9px}
+.demo-command-heading strong{color:#263442;font-size:9px}
+.demo-command-heading span{color:#0789a4;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.demo-command-ribbon{--command-count:1;display:grid;grid-template-columns:repeat(var(--command-count),minmax(0,1fr));gap:3px;padding:6px 8px 7px;background:linear-gradient(#f8f9fb,#eef1f5)}
+.demo-command{position:relative;display:grid;grid-template-rows:43px auto;place-items:center;align-content:center;gap:4px;min-width:0;min-height:78px;padding:6px 5px 7px;border:1px solid transparent;border-radius:4px;background:transparent;color:#344250;font:inherit;cursor:pointer;transition:background .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+.demo-command:hover{background:#fff;border-color:#d3dae2;box-shadow:0 2px 5px rgba(32,49,65,.08)}
+.demo-command[aria-selected=true]{background:#fff;border-color:#b9dce5;box-shadow:0 2px 7px rgba(8,137,164,.12),inset 0 -3px #079bb1;color:#086f88}
+.demo-command-icon{width:42px;height:42px;object-fit:contain;image-rendering:auto;filter:drop-shadow(0 2px 2px rgba(25,58,78,.08));transition:transform .2s ease}
+.demo-command-name{overflow:hidden;width:100%;color:inherit;font-size:9px;font-weight:700;line-height:1.15;text-align:center;text-overflow:ellipsis;white-space:nowrap}
+.demo-command-pulse{position:absolute;top:8px;right:9px;width:5px;height:5px;border-radius:50%;background:#079bb1;opacity:0;box-shadow:0 0 0 0 rgba(7,155,177,.32)}
+.demo-command[aria-selected=true] .demo-command-pulse{opacity:1;animation:demoCommandPulse 1.8s ease-out infinite}
+.demo-command.is-clicking{transform:scale(.96);background:#e8f8fb}
+.demo-command.is-clicking .demo-command-icon{transform:scale(.9)}
+.demo-command:focus-visible{outline:2px solid #079bb1;outline-offset:2px}
+@keyframes demoCommandPulse{0%{box-shadow:0 0 0 0 rgba(7,155,177,.34)}70%,100%{box-shadow:0 0 0 8px rgba(7,155,177,0)}}
+.raw-revit-demo .hero-video-frame,.raw-revit-demo #hero-demo-panel[data-demo-category="cotas"] .hero-video-frame{aspect-ratio:16/9;background:#fff}
+.raw-revit-demo .hero-video-frame video,.raw-revit-demo #hero-demo-panel[data-demo-category="cotas"] .hero-video-frame video{box-sizing:border-box;object-fit:contain;background:#fff;padding:0}
+@media(max-width:680px){
+ .demo-command-heading{padding-inline:9px}
+ .demo-command-heading span{font-size:7px}
+ .demo-command-ribbon{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:112px;justify-content:start;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;padding:5px 7px 6px}
+ .demo-command{min-height:70px;grid-template-rows:38px auto;scroll-snap-align:start}
+ .demo-command-icon{width:37px;height:37px}
+ .demo-command-name{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){.demo-command,.demo-command-icon{transition:none}.demo-command[aria-selected=true] .demo-command-pulse{animation:none}}
+/* Configurações: copy à esquerda e galeria dos menus à direita. */
+.config-showcase{position:relative;overflow:hidden;background:radial-gradient(ellipse 620px 520px at 82% 42%,rgba(109,69,217,.08),transparent 72%),radial-gradient(ellipse 520px 420px at 10% 55%,rgba(11,147,168,.07),transparent 74%),#f6f8fb}
+.config-showcase::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(13,17,23,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(13,17,23,.025) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(90deg,#000,transparent 48%)}
+.config-showcase-grid{position:relative;display:grid;grid-template-columns:minmax(320px,.78fr) minmax(500px,1.22fr);gap:clamp(48px,6vw,88px);align-items:center}
+.config-showcase-copy{max-width:580px}
+.config-showcase-copy h2{margin:14px 0 22px;font-size:clamp(40px,3.6vw,54px);letter-spacing:-.045em}.config-showcase-copy h2 span{display:block;white-space:nowrap}
+.config-showcase-copy>.section-copy{margin-bottom:34px;font-size:17px;line-height:1.65}
+.config-points{display:grid;gap:0;border-top:1px solid rgba(13,17,23,.11)}
+.config-points article{display:grid;grid-template-columns:38px 1fr;gap:14px;padding:17px 0;border-bottom:1px solid rgba(13,17,23,.11)}
+.config-points article>span{padding-top:3px;color:#0b93a8;font-size:11px;font-weight:900;letter-spacing:.12em}
+.config-points h3{margin:0 0 4px;font-size:16px;letter-spacing:-.015em}
+.config-points p{margin:0;color:#59677a;font-size:13px;line-height:1.55}
+.config-gallery{min-width:0;display:grid;place-items:center}
+.config-carousel-stage{position:relative;width:min(100%,620px);aspect-ratio:4/5}
+.config-carousel-image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;visibility:hidden;transform:translateX(24px) scale(.985);filter:drop-shadow(0 28px 32px rgba(32,48,74,.16));transition:opacity .72s ease,transform .72s cubic-bezier(.2,.75,.2,1),visibility 0s linear .72s}
+.config-carousel-image.is-active{z-index:1;opacity:1;visibility:visible;transform:none;transition-delay:0s}
+@media(max-width:960px){.config-showcase-grid{grid-template-columns:1fr;gap:42px}.config-showcase-copy{max-width:680px}.config-gallery{width:min(100%,680px);margin-inline:auto}.config-carousel-stage{width:min(100%,560px)}}
+@media(max-width:560px){.config-showcase-copy h2{font-size:clamp(35px,10vw,45px)}.config-showcase-copy h2 span{white-space:normal}.config-showcase-copy>.section-copy{font-size:16px}.config-carousel-stage{width:100%}.config-carousel-image{filter:drop-shadow(0 18px 24px rgba(32,48,74,.14))}}
+@media(prefers-reduced-motion:reduce){.config-carousel-image{transition:none;transform:none}}
+/* Planos mensal e anual com revelação do desconto. */
+.pricing-section{min-height:0;padding-block:clamp(64px,8vw,96px)}
+.pricing-container{width:min(100% - 40px,1080px)}
+.pricing-heading{margin-bottom:22px}
+.pricing-heading h2{font-size:clamp(40px,4.7vw,62px)}
+.student-price-row{display:flex;justify-content:center;align-items:center;gap:15px;margin:0 auto 20px;color:#68768a;font-size:12px;font-weight:700}
+.student-price-row .student-switch{width:min(100%,470px);margin:0}
+.pricing-options{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:18px;align-items:stretch}
+.pricing-options .price-card{display:flex;flex-direction:column;width:auto;margin:0;padding:30px;border-radius:22px}
+.price-monthly{border-color:rgba(13,17,23,.12);box-shadow:0 18px 45px rgba(32,48,74,.08)}
+.price-annual{overflow:visible;border-color:#0b93a8;box-shadow:0 28px 70px rgba(11,147,168,.14)}
+.plan-card-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}
+.plan-card-head .plan-name{font-size:12px}
+.plan-card-head>small{color:#7c899a;font-size:10px;font-weight:750}
+.monthly-price{display:flex;align-items:flex-end;min-height:91px;margin:5px 0 13px;line-height:.82}
+.monthly-price>span{margin:0 7px 9px 0;font-size:19px;font-weight:850}
+.monthly-price>strong{font-size:72px;letter-spacing:-.07em}
+.monthly-price>small{margin:0 0 10px 9px;color:#59677a;font-size:15px;font-weight:750}
+.plan-description{min-height:0!important;margin:0 0 20px!important;color:#68768a!important;font-size:13px!important}
+.annual-price-stage{position:relative;min-height:126px;margin:0 0 2px}
+.annual-price-before{position:absolute;left:0;top:7px;display:flex;align-items:baseline;gap:7px;color:#263344;line-height:1}
+.annual-price-before>span{color:#68768a;font-size:13px;font-weight:750;text-transform:uppercase}
+.annual-price-before>strong{position:relative;font-size:42px;letter-spacing:-.045em}
+.annual-price-before>strong::after{content:"";position:absolute;left:-5%;right:-5%;top:52%;height:4px;border-radius:99px;background:#ef3340;box-shadow:0 2px 10px rgba(239,51,64,.28);transform:rotate(-5deg) scaleX(0);transform-origin:left}
+.annual-price-before>small{color:#68768a;font-size:12px;font-weight:700}
+.annual-price-offer{position:absolute;left:0;bottom:0;display:flex;align-items:flex-end;gap:9px;opacity:0;transform:translateY(13px) scale(.96);transform-origin:left bottom}
+.annual-price-offer>span{margin-bottom:11px;color:#0b93a8;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.annual-price-offer>div{display:flex;align-items:flex-end;line-height:.78}
+.annual-price-offer sup{margin:0 6px 10px 0;color:#0b93a8;font-size:19px;font-weight:900}
+.annual-price-offer strong{display:inline-block;padding:0 .085em .04em .02em;margin:0 -.085em -.04em -.02em;background:linear-gradient(105deg,#0b93a8,#6d45d9);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:72px;letter-spacing:-.075em}
+.annual-price-offer small{margin:0 0 10px 9px;color:#4c5b6e;font-size:15px;font-weight:800}
+.price-annual.is-price-revealed .annual-price-before{animation:normal-price-dim .45s 1.05s ease forwards}
+.price-annual.is-price-revealed .annual-price-before>strong::after{animation:normal-price-strike .48s .72s cubic-bezier(.2,.8,.2,1) forwards}
+.price-annual.is-price-revealed .annual-price-offer{animation:discount-price-reveal .64s 1.22s cubic-bezier(.17,.84,.28,1.18) forwards}
+.cash-price{min-height:0!important;margin:7px 0 3px!important;color:#68768a!important;font-size:11px!important}
+.price-annual .price-condition{min-height:38px;margin:0 0 16px;color:#68768a;font-size:11px;line-height:1.45}
+.compact-plan-features{display:grid!important;gap:8px!important;margin:0 0 24px!important;padding:17px 0 0!important;border-top:1px solid rgba(13,17,23,.1)!important}
+.compact-plan-features li{font-size:12px!important;line-height:1.35!important}
+.pricing-options .checkout-link{width:100%;min-height:50px;margin-top:auto;padding-inline:15px;font-size:12px}
+.price-monthly .button-outline{border-color:rgba(13,17,23,.16);background:#fff;color:#17202c}
+.price-monthly .button-outline:hover{border-color:#0b93a8;background:#f5fbfc}
+.price-annual.is-student{border-color:#6d45d9;box-shadow:0 28px 70px rgba(109,69,217,.13)}
+.price-annual.is-price-changing [data-price-value]{display:inline-block;animation:price-pop .35s ease}
+@keyframes normal-price-strike{to{transform:rotate(-5deg) scaleX(1)}}
+@keyframes normal-price-dim{to{opacity:.48;transform:translateY(-3px)}}
+@keyframes discount-price-reveal{0%{opacity:0;transform:translateY(13px) scale(.96)}70%{opacity:1;transform:translateY(-2px) scale(1.025)}100%{opacity:1;transform:none}}
+@media(max-width:760px){.pricing-section{padding-block:64px}.pricing-container{width:min(100% - 28px,1080px)}.student-price-row{display:grid;gap:8px}.student-price-row>span{text-align:center}.pricing-options{grid-template-columns:1fr}.pricing-options .price-card{padding:26px}.price-monthly{order:2}.price-annual{order:1}.annual-price-offer strong,.monthly-price>strong{font-size:62px}.annual-price-before>strong{font-size:37px}.plan-card-head{align-items:flex-start}.plan-card-head>small{text-align:right}}
+@media(max-width:390px){.annual-price-offer strong,.monthly-price>strong{font-size:55px}.annual-price-offer small,.monthly-price>small{font-size:13px}.annual-price-offer sup{font-size:16px}.student-switch button{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.annual-price-before{opacity:.48;transform:translateY(-3px)}.annual-price-before>strong::after{transform:rotate(-5deg) scaleX(1)}.annual-price-offer{opacity:1;transform:none}}
+/* Risco editorial que reforça “O fim” na promessa principal. */
+.hero-end-mark{position:relative;isolation:isolate;display:inline-block;white-space:nowrap}
+.hero-end-mark::after{content:"";position:absolute;z-index:1;left:-.04em;right:-.07em;top:52%;height:.075em;border-radius:999px 62% 999px 48%;background:linear-gradient(90deg,#ef152b,#ff3548 72%,#c9001d);box-shadow:0 .025em .08em rgba(213,0,29,.2);clip-path:polygon(0 30%,96% 0,100% 68%,3% 100%);transform:rotate(-2.2deg) scaleX(0);transform-origin:left center;animation:hero-end-stroke .72s .55s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes hero-end-stroke{0%{transform:rotate(-2.2deg) scaleX(0);opacity:.3}70%{transform:rotate(-2.2deg) scaleX(1.04);opacity:1}100%{transform:rotate(-2.2deg) scaleX(1);opacity:1}}
+@media(max-width:680px){.hero-end-mark::after{height:.085em;top:52%}}
+@media(prefers-reduced-motion:reduce){.hero-end-mark::after{animation:none;transform:rotate(-2.2deg) scaleX(1);opacity:1}}
+/* Ribbon em uma linha, agrupada em painéis como no Revit. */
+.demo-command-shell{overflow:hidden;background:#eef1f5}
+.demo-command-ribbon{display:flex;grid-template-columns:none;align-items:stretch;gap:0;overflow-x:auto;padding:4px 5px 0;background:linear-gradient(#f8f9fb,#edf1f5);scrollbar-width:thin;overscroll-behavior-inline:contain}
+.demo-command-panel{display:grid;grid-template-rows:1fr 15px;flex:var(--panel-command-count) 0 calc(var(--panel-command-count) * 70px);min-width:calc(var(--panel-command-count) * 70px);border-right:1px solid #cbd2db}
+.demo-command-panel:last-child{border-right:0}
+.demo-command-panel-tools{display:grid;grid-template-columns:repeat(var(--panel-command-count),minmax(58px,1fr));align-items:stretch;padding:0 3px}
+.demo-command-panel-label{display:block;overflow:hidden;padding:1px 5px 2px;color:#697583;font-size:7px;font-weight:600;line-height:12px;text-align:center;text-overflow:ellipsis;white-space:nowrap}
+.demo-command{grid-template-rows:31px auto;gap:2px;min-height:58px;padding:3px 3px 4px;border-radius:3px}
+.demo-command-icon{width:30px;height:30px}
+.demo-command-name{font-size:7.5px;line-height:1.1}
+.demo-command-pulse{top:4px;right:5px;width:4px;height:4px}
+.demo-command[aria-pressed="true"]{background:#fff;border-color:#b9dce5;box-shadow:0 1px 5px rgba(8,137,164,.1),inset 0 -2px #079bb1;color:#086f88}
+.demo-command[aria-pressed="true"] .demo-command-pulse{opacity:1;animation:demoCommandPulse 1.8s ease-out infinite}
+@media(max-width:680px){.demo-command-ribbon{display:flex;grid-auto-flow:initial;grid-auto-columns:initial;padding:4px 4px 0;scroll-snap-type:x proximity}.demo-command-panel{flex:0 0 calc(var(--panel-command-count) * 76px);min-width:calc(var(--panel-command-count) * 76px);scroll-snap-align:start}.demo-command-panel-tools{grid-template-columns:repeat(var(--panel-command-count),76px)}.demo-command{grid-template-rows:30px auto;min-height:57px}.demo-command-icon{width:29px;height:29px}.demo-command-name{font-size:7px}}
+@media(prefers-reduced-motion:reduce){.demo-command[aria-pressed="true"] .demo-command-pulse{animation:none}}
+/* Selo de lançamento com hierarquia de oferta. */
+.price-annual .best-badge{isolation:isolate;top:-23px;right:24px;display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border:2px solid #fff;border-radius:999px;background:linear-gradient(105deg,#c9001d,#f21d35 58%,#b9001a);color:#fff;font-size:12px;font-weight:950;letter-spacing:.075em;text-shadow:0 1px 4px rgba(91,0,13,.35);box-shadow:0 12px 28px rgba(201,0,29,.3),0 0 0 5px rgba(239,21,43,.08);transform-origin:center}
+.price-annual .best-badge::before{content:"";position:absolute;z-index:-1;inset:-7px;border:1px solid rgba(239,21,43,.32);border-radius:inherit;opacity:0}
+.price-annual.is-price-revealed .best-badge{animation:launch-badge-enter .58s .18s cubic-bezier(.18,.85,.26,1.22) both}
+.price-annual.is-price-revealed .best-badge::before{animation:launch-badge-pulse 2.4s 1s ease-out infinite}
+@keyframes launch-badge-enter{from{opacity:0;transform:translateY(9px) scale(.82)}to{opacity:1;transform:none}}
+@keyframes launch-badge-pulse{0%{opacity:.65;transform:scale(.92)}65%,100%{opacity:0;transform:scale(1.16)}}
+@media(max-width:760px){.price-annual .best-badge{top:-22px;right:50%;min-height:42px;padding-inline:17px;font-size:10px;transform:translateX(50%);white-space:nowrap}.price-annual.is-price-revealed .best-badge{animation:launch-badge-enter-mobile .58s .18s cubic-bezier(.18,.85,.26,1.22) both}@keyframes launch-badge-enter-mobile{from{opacity:0;transform:translateX(50%) translateY(9px) scale(.82)}to{opacity:1;transform:translateX(50%)}}}
+@media(prefers-reduced-motion:reduce){.price-annual.is-price-revealed .best-badge{animation:none}.price-annual.is-price-revealed .best-badge::before{animation:none}}
+/* Cabeçalho centralizado da galeria de demonstrações. */
+.demos-section .split-heading{display:block;max-width:930px;margin:0 auto 48px;text-align:center}
+.demos-section .split-heading>div{max-width:none}
+.demos-section .split-heading .eyebrow{justify-content:center}
+.demos-section .split-heading h2{max-width:900px;margin:13px auto 0;text-wrap:balance}
+.demos-section .split-heading>p{max-width:650px;margin:20px auto 0;text-align:center;text-wrap:balance}
+@media(max-width:680px){.demos-section .split-heading{margin-bottom:34px}.demos-section .split-heading>p{margin-top:16px}}
+
+/* Validação da condição de aluno antes do checkout exclusivo. */
+.pricing-heading:not(:has(h2)){margin-bottom:18px}
+.pricing-heading:not(:has(h2)) .eyebrow{display:block;margin-bottom:12px}
+.student-validation-dialog{width:min(520px,calc(100% - 28px));padding:38px}
+.student-validation-dialog>p{margin:0 0 22px}
+.student-validation-dialog form{display:grid;gap:10px}
+.student-validation-dialog label{color:#364254;font-size:13px;font-weight:800}
+.student-validation-dialog input{width:100%;height:52px;padding:0 15px;border:1px solid #cfd7e2;border-radius:12px;background:#fff;color:#0d1117;font:inherit;outline:none;transition:border-color .2s ease,box-shadow .2s ease}
+.student-validation-dialog input:focus{border-color:#0b93a8;box-shadow:0 0 0 4px rgba(11,147,168,.11)}
+.student-validation-dialog input[aria-invalid="true"]{border-color:#e83b4f;box-shadow:0 0 0 4px rgba(232,59,79,.09)}
+.student-validation-dialog [data-student-submit]{width:100%;margin-top:5px}
+.student-validation-dialog [data-student-submit]:disabled{cursor:wait;opacity:.66}
+.student-validation-status{min-height:21px;margin:16px 0 0!important;color:#59677a!important;font-size:13px}
+.student-validation-status.is-error{color:#c5273d!important}
+.student-validation-status.is-success{color:#087f67!important}
+.student-support-link{display:inline-flex;margin-top:3px;color:#0b93a8;font-size:13px;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.student-support-link[hidden]{display:none}
+@media(max-width:560px){.student-validation-dialog{padding:30px 22px}.student-validation-dialog h2{font-size:27px}}
+
+/* Atalho direto para conversa no WhatsApp, sem mensagem pré-preenchida. */
+.whatsapp-float{position:fixed;z-index:80;right:max(22px,env(safe-area-inset-right));bottom:max(22px,env(safe-area-inset-bottom));display:inline-flex;align-items:center;gap:10px;min-height:54px;padding:0 18px 0 14px;border:1px solid rgba(255,255,255,.45);border-radius:999px;background:#20b85a;color:#fff;font-size:13px;font-weight:850;box-shadow:0 16px 38px rgba(17,126,61,.28);transition:transform .2s ease,background .2s ease,box-shadow .2s ease}
+.whatsapp-float:hover{background:#16a64d;color:#fff;transform:translateY(-3px);box-shadow:0 20px 44px rgba(17,126,61,.34)}
+.whatsapp-float:focus-visible{outline:3px solid #0d1117;outline-offset:3px}
+.whatsapp-float svg{width:27px;height:27px;fill:currentColor;flex:none}
+@media(max-width:560px){.whatsapp-float{right:max(14px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));width:54px;padding:0;justify-content:center}.whatsapp-float span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}}
+@media(prefers-reduced-motion:reduce){.whatsapp-float{transition:none}}
+
+.discount-reference{min-height:0!important;margin:1px 0 5px!important;color:#7c899a!important;font-size:10px!important;line-height:1.4}
+
+/* Apoio das demonstrações em uma linha no desktop. */
+@media(min-width:921px){.demos-section .split-heading>p{max-width:none;white-space:nowrap;text-wrap:nowrap}}
+
+/* Evita sobreposição entre a headline em duas linhas e o carrossel. */
+@media(min-width:1181px){
+  .config-showcase-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(44px,5vw,68px)}
+  .config-showcase-copy{max-width:none}
+  .config-showcase-copy h2{font-size:clamp(40px,3.45vw,50px);line-height:1.08}
+}
+@media(min-width:561px) and (max-width:1180px){
+  .config-showcase-grid{grid-template-columns:1fr;gap:42px}
+  .config-showcase-copy{max-width:680px}
+  .config-gallery{width:min(100%,680px);margin-inline:auto}
+  .config-carousel-stage{width:min(100%,560px)}
+}
+
+/* Oferta anual: destaque forte para a condição exclusiva de lançamento. */
+.price-annual .best-badge{
+  top:-35px;
+  right:22px;
+  min-width:258px;
+  min-height:70px;
+  padding:10px 22px 11px;
+  flex-direction:column;
+  gap:3px;
+  border-width:3px;
+  border-radius:18px;
+  background:linear-gradient(115deg,#bc001d 0%,#f01835 52%,#c50024 100%);
+  box-shadow:0 16px 34px rgba(201,0,29,.38),0 0 0 7px rgba(239,21,43,.1);
+  line-height:1;
+}
+.price-annual .best-badge strong{font-size:19px;font-weight:950;letter-spacing:.055em}
+.price-annual .best-badge small{font-size:8px;font-weight:900;letter-spacing:.12em;white-space:nowrap;opacity:.94}
+.price-annual .plan-card-head{padding-top:12px}
+.price-annual .price-condition{
+  display:grid;
+  gap:3px;
+  min-height:0;
+  margin:10px 0 17px;
+  padding:10px 12px 10px 14px;
+  border-left:4px solid #ed1634;
+  border-radius:0 10px 10px 0;
+  background:linear-gradient(90deg,rgba(239,21,52,.095),rgba(239,21,52,.025));
+}
+.price-annual .price-condition strong{color:#b80724;font-size:11.5px;font-weight:900;letter-spacing:.005em}
+.price-annual .price-condition span{color:#68768a;font-size:10.5px;line-height:1.4}
+.price-annual.is-student .best-badge{background:linear-gradient(115deg,#4630b5,#7046df 55%,#5132c4);box-shadow:0 16px 34px rgba(80,49,193,.34),0 0 0 7px rgba(109,69,217,.09)}
+.price-annual.is-student .price-condition{border-left-color:#6541d2;background:linear-gradient(90deg,rgba(101,65,210,.1),rgba(101,65,210,.025))}
+.price-annual.is-student .price-condition strong{color:#5131b8}
+@media(max-width:760px){
+  .price-annual .best-badge{top:-33px;right:50%;width:min(290px,calc(100% - 34px));min-width:0;min-height:66px;padding:9px 14px 10px;border-radius:17px}
+  .price-annual .best-badge strong{font-size:17px}
+  .price-annual .best-badge small{font-size:7.5px;letter-spacing:.095em}
+  .price-annual .plan-card-head{padding-top:18px}
+}
+
+/* Tarja de desconto da Oferta Única de Fundador. */
+.price-annual .founder-discount-sash{
+  position:absolute;
+  z-index:3;
+  top:42px;
+  left:-22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:166px;
+  height:37px;
+  border:2px solid rgba(255,255,255,.94);
+  border-radius:7px;
+  background:linear-gradient(105deg,#f51b38,#c90024);
+  color:#fff;
+  box-shadow:0 10px 24px rgba(201,0,36,.28);
+  transform:rotate(-8deg);
+  transform-origin:center;
+  pointer-events:none;
+}
+.price-annual .founder-discount-sash::before,
+.price-annual .founder-discount-sash::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:rgba(255,255,255,.82);
+  transform:translateY(-50%);
+}
+.price-annual .founder-discount-sash::before{left:10px}
+.price-annual .founder-discount-sash::after{right:10px}
+.price-annual .founder-discount-sash strong{font-size:15px;font-weight:950;letter-spacing:.08em;text-shadow:0 1px 3px rgba(91,0,13,.3)}
+.price-annual.is-price-revealed .founder-discount-sash{animation:founder-sash-enter .7s .42s cubic-bezier(.18,.85,.26,1.18) both}
+.price-annual.is-student .founder-discount-sash{display:none}
+@keyframes founder-sash-enter{from{opacity:0;transform:rotate(-8deg) translateX(-22px) scale(.86)}to{opacity:1;transform:rotate(-8deg) translateX(0) scale(1)}}
+@media(max-width:760px){
+  .price-annual .founder-discount-sash{top:50px;left:-5px;width:126px;height:33px;transform:rotate(-7deg)}
+  .price-annual .founder-discount-sash strong{font-size:12px}
+  .price-annual.is-price-revealed .founder-discount-sash{animation-name:founder-sash-enter-mobile}
+  @keyframes founder-sash-enter-mobile{from{opacity:0;transform:rotate(-7deg) translateX(-18px) scale(.88)}to{opacity:1;transform:rotate(-7deg) translateX(0) scale(1)}}
+}
+@media(prefers-reduced-motion:reduce){.price-annual.is-price-revealed .founder-discount-sash{animation:none}}
+
+/* Reserva horizontal para a tarja sem cobrir o cabeçalho do plano. */
+.price-annual .plan-card-head .plan-name{margin-left:132px}
+@media(max-width:760px){.price-annual .plan-card-head .plan-name{margin-left:112px}}

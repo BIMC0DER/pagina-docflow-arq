@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="vendas.css?v=62">
+  <link rel="stylesheet" href="vendas.css?v=44">
 </head>
 <body>
   <header class="site-header">
@@ -41,12 +41,12 @@
 
   <main id="topo">
     <section class="hero concept-hero">
-      <div class="launch-offer-ribbon" aria-hidden="true"><span class="offer-ribbon-track"><span class="offer-ribbon-group"><b>OFERTA ÚNICA DE LANÇAMENTO</b><i>◆</i><b>OFERTA ÚNICA DE LANÇAMENTO</b><i>◆</i><b>OFERTA ÚNICA DE LANÇAMENTO</b><i>◆</i></span><span class="offer-ribbon-group"><b>OFERTA ÚNICA DE LANÇAMENTO</b><i>◆</i><b>OFERTA ÚNICA DE LANÇAMENTO</b><i>◆</i><b>OFERTA ÚNICA DE LANÇAMENTO</b><i>◆</i></span></span></div>
+      <div class="launch-offer-ribbon" aria-hidden="true"><span class="offer-ribbon-track"><span class="offer-ribbon-group"><b>OFERTA ÚNICA DE FUNDADOR</b><i>◆</i><b>OFERTA ÚNICA DE FUNDADOR</b><i>◆</i><b>OFERTA ÚNICA DE FUNDADOR</b><i>◆</i></span><span class="offer-ribbon-group"><b>OFERTA ÚNICA DE FUNDADOR</b><i>◆</i><b>OFERTA ÚNICA DE FUNDADOR</b><i>◆</i><b>OFERTA ÚNICA DE FUNDADOR</b><i>◆</i></span></span></div>
       <div class="concept-background" aria-hidden="true"><img src="media/hero-detalhes.jpg" alt="" fetchpriority="high"><div class="concept-wash"></div></div>
       <div class="container hero-grid">
         <div class="hero-copy">
           <span class="eyebrow"><span class="pulse"></span> Documentação de arquitetura dentro do Revit</span>
-          <h1>O fim das <span class="gradient-text">cotas e detalhamentos manuais</span> de arquitetura</h1>
+          <h1><span class="hero-end-mark">O fim</span> das <span class="gradient-text">cotas e detalhamentos manuais</span> de arquitetura</h1>
           <ul class="concept-lead hero-benefits" aria-label="Benefícios">
             <li><svg class="benefit-icon benefit-click" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="click-rays"><path d="M8 2v3M2 8h3M3.5 3.5l2 2M13 3l-1.5 2M3 13l2-1.5"/></g><path class="click-pointer" d="m9 9 6 19 3.5-7 7-3.5L9 9Z"/></svg><span>Gere cotas, vistas e pranchas no Revit com poucos cliques.</span></li>
             <li><svg class="benefit-icon benefit-growth" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="growth-axes" d="M4 5v23h24"/><path class="growth-line" pathLength="1" d="m8 23 6-8 5 4 9-12"/><path class="growth-tip" d="M21 7h7v7"/></svg><span>Ganhe tempo para projetar e focar no que realmente importa.</span></li>
@@ -97,16 +97,13 @@
             <div class="revit-titlebar"><span class="revit-mark">R</span><span>Projeto arquitetônico — Autodesk Revit</span><span class="revit-window-actions" aria-hidden="true">—　□　×</span></div>
             <div class="revit-ribbon" aria-hidden="true"><span class="revit-file">Arquivo</span><span>Arquitetura</span><span>Estrutura</span><span>Inserir</span><span>Anotar</span><span>Vista</span><i></i><b>Modificar</b></div>
             <div class="demo-bar"><span class="demo-dot"></span><span>DocFlow ARQ</span><span class="demo-status">EM AÇÃO</span></div>
-            <div class="demo-tabs" role="tablist" aria-label="Ferramenta em demonstração">
-              <button type="button" id="tab-cotas" role="tab" aria-selected="true" aria-controls="hero-demo-panel" data-demo-category="cotas">Cotas</button>
-              <button type="button" id="tab-vistas" role="tab" aria-selected="false" aria-controls="hero-demo-panel" tabindex="-1" data-demo-category="vistas">Vistas</button>
-              <button type="button" id="tab-tags" role="tab" aria-selected="false" aria-controls="hero-demo-panel" tabindex="-1" data-demo-category="tags">Tags</button>
-              <button type="button" id="tab-pranchas" role="tab" aria-selected="false" aria-controls="hero-demo-panel" tabindex="-1" data-demo-category="pranchas">Pranchas</button>
+            <div class="demo-command-shell">
+              <div id="hero-demo-tools" class="demo-command-ribbon" role="toolbar" aria-label="Ferramentas do DocFlow ARQ"></div>
             </div>
-            <div id="hero-demo-panel" role="tabpanel" aria-labelledby="tab-cotas" tabindex="0" data-demo-category="cotas">
-              <div class="hero-video-frame"><video id="hero-demo-video" src="media/paredes-lote.mp4" aria-label="Cotas de paredes em lote" muted loop playsinline preload="metadata"></video></div>
+            <div id="hero-demo-panel" tabindex="0" data-demo-category="cotas" aria-label="Demonstração da ferramenta selecionada">
+              <div class="hero-video-frame"><video id="hero-demo-video" src="media/horizontal/cotas-externas.mp4?v=20260907" aria-label="Cotas externas" muted loop playsinline preload="metadata"></video></div>
               <div class="revit-statusbar" aria-hidden="true"><span>Planta de piso: Nível 01</span><span>Escala 1:100　▾</span></div>
-              <div class="demo-caption"><strong id="hero-demo-caption">Cotas de paredes em lote</strong></div>
+              <div class="demo-caption"><strong id="hero-demo-caption">Cotas externas</strong></div>
             </div>
           </div>
         </div>
@@ -229,7 +226,7 @@
 
           <div class="time-next">
             <p>E se a parte repetitiva não precisasse ocupar tanto espaço no seu dia?</p>
-            <a class="scroll-invitation" href="#cotas-na-pratica">Veja como o DocFlow entra na sua rotina.<span aria-hidden="true">↓</span></a>
+            <a class="scroll-invitation" href="#cotas-na-pratica">Entenda como o DocFlow entra na sua rotina.<span aria-hidden="true">↓</span></a>
           </div>
         </div>
       </div>
@@ -292,30 +289,9 @@
       </div>
     </section>
 
-    <section class="section sales-showcase" id="comandos" aria-labelledby="sales-showcase-title">
-      <div class="container">
-        <div class="sales-showcase-head" data-scroll-reveal>
-          <span class="eyebrow">Um comando. Uma tarefa resolvida.</span>
-          <h2 id="sales-showcase-title">Você clica uma vez... <span>e tudo sai pronto.</span></h2>
-          <p class="sales-showcase-kicker" id="salesScKicker">Cotas de Paredes · Externas</p>
-        </div>
-
-        <div class="sales-showcase-stage" id="salesScStage" role="region" aria-roledescription="carrossel" aria-label="Comandos do DocFlow ARQ">
-          <div class="sales-showcase-track" id="salesScTrack"></div>
-        </div>
-
-        <div class="sales-showcase-controls">
-          <button class="sales-sc-btn" id="salesScPrev" type="button" aria-label="Comando anterior">‹</button>
-          <p class="sales-showcase-counter"><strong id="salesScNow">01</strong> / <span id="salesScTotal">22</span></p>
-          <button class="sales-sc-btn" id="salesScNext" type="button" aria-label="Próximo comando">›</button>
-        </div>
-        <div class="sales-showcase-progress" aria-hidden="true"><span id="salesScBar"></span></div>
-        <p class="sales-showcase-hint">Arraste para o lado ou use as setas do teclado.</p>
-      </div>
-    </section>
     <section class="section coverage-section" id="ferramentas" aria-labelledby="tools-title">
       <div class="container tools-layout">
-        <div class="tools-heading"><span class="eyebrow">Recursos incluídos</span><h2 id="tools-title">As ferramentas que acompanham sua documentação.</h2><p class="section-copy">Das primeiras cotas à montagem das pranchas. Um conjunto de comandos para diferentes etapas do seu projeto, na mesma aba do Revit.</p></div>
+        <div class="tools-heading"><span class="eyebrow">Recursos incluídos</span><h2 id="tools-title">As ferramentas que acompanham sua documentação.</h2><p class="section-copy">Da criação das vistas até a montagem e exportação de pranchas. Um conjunto de comandos para diferentes etapas do seu projeto, na mesma aba do Revit.</p></div>
 <div class="tools-mosaic">
           <article class="tool-tile"><img class="tool-icon" src="media/tool-icons/icon-ParedesExternas.dark.png" alt="" width="96" height="96" loading="lazy" decoding="async"><h3>Paredes externas</h3></article>
           <article class="tool-tile"><img class="tool-icon" src="media/tool-icons/icon-ParedesInternas.dark.png" alt="" width="96" height="96" loading="lazy" decoding="async"><h3>Paredes internas</h3></article>
@@ -343,64 +319,80 @@
     </section>
 
 
-    <section class="section honest-section" id="personalizacao" aria-labelledby="personalizacao-title">
-      <div class="container honest-grid">
-        <div class="honest-copy"><span class="eyebrow">Configurável para o seu escritório</span><h2 id="personalizacao-title">Seu padrão de projeto. Seu jeito de documentar.</h2><p class="section-copy">Use os tipos de cotas que já fazem parte do seu projeto, defina os afastamentos e salve suas preferências. A automação segue o padrão que você configura.</p></div>
-        <div class="config-video-window" data-scroll-reveal>
-          <div class="config-video-bar"><span class="demo-dot"></span><strong>DocFlow ARQ</strong><small>Configurações</small></div>
-          <video id="config-video" src="media/configuracoes.mp4" width="540" height="960" muted loop controls playsinline preload="metadata" aria-label="Demonstração das configurações e perfis do DocFlow"></video>
-          <p>Tipos de cotas, afastamentos e perfis salvos no mesmo lugar.</p>
+    <section class="section honest-section config-showcase" id="personalizacao" aria-labelledby="personalizacao-title">
+      <div class="container config-showcase-grid">
+        <div class="config-showcase-copy" data-scroll-reveal>
+          <span class="eyebrow">Configurável para o seu escritório</span>
+          <h2 id="personalizacao-title"><span>Seu padrão de projeto</span><span>Seu jeito de documentar</span></h2>
+          <p class="section-copy">Defina como as cotas, vistas e tags devem ser criadas de acordo com o padrão do seu escritório.</p>
+          <div class="config-points" aria-label="Benefícios das configurações">
+            <article><span>01</span><div><h3>Configure uma vez</h3><p>Defina tipos, afastamentos, referências e regras de cada comando.</p></div></article>
+            <article><span>02</span><div><h3>Perfis para cada padrão</h3><p>Salve combinações e alterne entre escritórios ou projetos.</p></div></article>
+            <article><span>03</span><div><h3>Tudo dentro do Revit</h3><p>Ajuste cotas, vistas e tags sem interromper seu fluxo de trabalho.</p></div></article>
+          </div>
         </div>
-        <div class="honest-list">
-          <div><span class="yes" aria-hidden="true">✓</span><p><strong>Seus tipos de cotas.</strong> Escolha entre os tipos disponíveis no projeto e mantenha a linguagem gráfica que você já usa no Revit.</p></div>
-          <div><span class="yes" aria-hidden="true">✓</span><p><strong>Seus afastamentos.</strong> Defina a distância entre a parede e a primeira cota e o espaçamento entre as cadeias.</p></div>
-          <div><span class="yes" aria-hidden="true">✓</span><p><strong>Você escolhe o que cotar.</strong> Configure vãos, interseções, cotas gerais e as referências consideradas em cada comando.</p></div>
-          <div><span class="yes" aria-hidden="true">✓</span><p><strong>Ajustes nos detalhes.</strong> Defina o tamanho mínimo dos segmentos e se os textos que não cabem devem ser afastados.</p></div>
-          <div><span class="yes" aria-hidden="true">✓</span><p><strong>Perfis para reutilizar.</strong> Salve combinações de configurações e alterne entre elas conforme o padrão de cada projeto.</p></div>
+        <div class="config-gallery config-carousel" data-scroll-reveal aria-label="Menus de configuração do DocFlow ARQ">
+          <div class="config-carousel-stage" data-config-carousel aria-live="off">
+            <img class="config-carousel-image is-active" data-config-slide src="media/configuracoes/cotas.png?v=20260907" width="1080" height="1350" loading="lazy" decoding="async" alt="Menu de configurações de cotas do DocFlow ARQ">
+            <img class="config-carousel-image" data-config-slide src="media/configuracoes/vistas.png?v=20260907" width="1080" height="1350" loading="lazy" decoding="async" alt="Menu de configurações de vistas do DocFlow ARQ" aria-hidden="true">
+            <img class="config-carousel-image" data-config-slide src="media/configuracoes/tags.png?v=20260907" width="1080" height="1350" loading="lazy" decoding="async" alt="Menu de configurações de tags do DocFlow ARQ" aria-hidden="true">
+          </div>
         </div>
       </div>
     </section>
-
     <section class="section pricing-section" id="planos">
       <div class="container pricing-container">
         <div class="section-heading center-heading pricing-heading">
-          <span class="eyebrow">Assinatura anual</span>
-          <h2>Cotas, vistas e pranchas no seu próximo projeto.</h2>
-          <p>Acesse as ferramentas do DocFlow ARQ e as atualizações durante a assinatura.</p>
+          <span class="eyebrow">Escolha seu plano</span>
+
+          <p>Todos os planos incluem as ferramentas do DocFlow ARQ e as atualizações durante a assinatura.</p>
         </div>
 
-        <div class="student-switch" data-student-switch data-student="no" role="group" aria-label="Condição de compra">
-          <span class="student-switch-indicator" aria-hidden="true"></span>
-          <button type="button" data-student-option="no" aria-pressed="true">NÃO SOU ALUNO</button>
-          <button type="button" data-student-option="yes" aria-pressed="false">SOU ALUNO BIM CODER</button>
-        </div>
-
-        <article class="price-card price-featured">
-          <span class="best-badge" data-price-badge>Desconto de lançamento</span>
-          <div class="price-card-layout">
-            <div class="price-summary">
-              <span class="plan-name">DocFlow ARQ · Anual</span>
-              <p class="price-original">Preço anual regular: <s>R$ 797</s></p>
-              <div class="price"><span>R$</span><strong data-price-value aria-live="polite">597</strong><small>preço de lançamento</small></div>
-              <p class="price-condition" data-price-condition>Desconto de lançamento de R$ 200 no primeiro ano. Depois, renovação por R$ 797/ano.</p>
-            </div>
-            <div class="price-details">
-              <ul>
-                <li>Ferramentas de cotas, vistas e pranchas</li>
-                <li>Configurações e modelos de pranchas</li>
-                <li>Atualizações durante a assinatura</li>
-                <li>Atendimento DocFlow</li>
-                <li>7 dias de garantia</li>
-              </ul>
-              <a class="button button-primary checkout-link" href="#" data-plan="anual" data-price-cta>Garantir desconto de lançamento — R$ 597</a>
-            </div>
+        <div class="student-price-row">
+          <span>Condição do plano anual:</span>
+          <div class="student-switch" data-student-switch data-student="no" role="group" aria-label="Condição de compra">
+            <span class="student-switch-indicator" aria-hidden="true"></span>
+            <button type="button" data-student-option="no" aria-pressed="true">NÃO SOU ALUNO</button>
+            <button type="button" data-student-option="yes" aria-pressed="false" aria-haspopup="dialog" aria-controls="studentValidationDialog">SOU ALUNO BIM CODER</button>
           </div>
-        </article>
+        </div>
 
-        <p class="pricing-note">Licença individual · ativação pelo e-mail da compra · compatível com Revit 2025 e 2027</p>
+        <div class="pricing-options">
+          <article class="price-card price-monthly">
+            <div class="plan-card-head"><span class="plan-name">Plano mensal</span><small>Mais flexibilidade</small></div>
+            <div class="monthly-price"><span>R$</span><strong>97</strong><small>/ mês</small></div>
+            <p class="plan-description">Acesso completo com cobrança mensal.</p>
+            <ul class="compact-plan-features">
+              <li>Todos os comandos do DocFlow ARQ</li>
+              <li>Atualizações e atendimento</li>
+              <li>7 dias de garantia</li>
+            </ul>
+            <a class="button button-outline checkout-link" href="#" data-plan="mensal">Quero o plano mensal — R$ 97/mês</a>
+          </article>
+
+          <article class="price-card price-featured price-annual" data-annual-price>
+            <span class="best-badge"><strong data-price-badge>OFERTA ÚNICA</strong><small data-price-badge-note>DE FUNDADOR</small></span>
+            <span class="founder-discount-sash" aria-label="50% de desconto"><strong>50% OFF</strong></span>
+            <div class="plan-card-head"><span class="plan-name">Plano anual</span><small>Melhor custo-benefício</small></div>
+            <div class="annual-price-stage" aria-live="polite">
+              <div class="annual-price-before"><span>De</span><strong>R$ 69,90</strong><small>/ mês</small></div>
+              <div class="annual-price-offer"><span>por</span><div><sup>R$</sup><strong data-price-value>49,90</strong><small>/ mês</small></div></div>
+            </div>
+            <p class="cash-price" data-cash-price>ou R$ 497 à vista por ano</p>
+            <p class="discount-reference">Condição exclusiva para quem entrar durante o lançamento.</p>
+            <p class="price-condition" data-price-condition><strong>Preço de fundador garantido.</strong><span>Renove por R$ 497/ano enquanto sua assinatura permanecer ativa.</span></p>
+            <ul class="compact-plan-features">
+              <li>Todos os comandos do DocFlow ARQ</li>
+              <li>Atualizações e atendimento</li>
+              <li>7 dias de garantia</li>
+            </ul>
+            <a class="button button-primary checkout-link" href="#" data-plan="anual" data-price-cta>Quero o plano anual — R$ 49,90/mês</a>
+          </article>
+        </div>
+
+        <p class="pricing-note">Licença individual · ativação pelo e-mail da compra · compatível com Revit 2023 a 2027</p>
       </div>
     </section>
-
 <section class="guarantee-section">
       <div class="container guarantee">
         <div class="shield" aria-hidden="true">7</div>
@@ -411,34 +403,52 @@
     <section class="section faq-section">
       <div class="container container-narrow">
         <div class="section-heading center-heading"><span class="eyebrow">Perguntas frequentes</span><h2>Antes de começar seu próximo projeto.</h2></div>
-        <details><summary>Em quais versões do Revit o DocFlow foi validado?</summary><p>A versão atual foi validada no Revit 2025 e 2027. Outras versões só serão anunciadas depois de passarem pelo mesmo processo de teste.</p></details>
+        <details><summary>Em quais versões do Revit o DocFlow foi validado?</summary><p>A versão atual foi validada e funciona do Revit 2023 ao Revit 2027.</p></details>
         <details><summary>Preciso saber Dynamo ou programação?</summary><p>Não. O DocFlow instala uma aba própria na ribbon do Revit. Você configura pelas janelas do plugin e executa pelos botões.</p></details>
         <details><summary>O que acontece com meu trabalho se eu cancelar?</summary><p>As cotas, vistas e pranchas já criadas permanecem no arquivo. Ao término do acesso, você deixa de executar os comandos do plugin, mas mantém o trabalho produzido.</p></details>
         <details><summary>Posso usar no padrão do meu escritório?</summary><p>Você pode ajustar as opções das ferramentas e usar modelos de organização de pranchas. Nas cotas de famílias, o resultado depende das referências disponíveis em cada família do projeto.</p></details>
         <details><summary>Preciso ficar conectado o tempo inteiro?</summary><p>A internet é necessária para ativação e revalidações periódicas da assinatura. O plugin mantém uma tolerância protegida para indisponibilidades temporárias.</p></details>
         <details><summary>O DocFlow documenta o projeto inteiro sozinho?</summary><p>Você escolhe as ferramentas e configura cada tarefa. O DocFlow ajuda a gerar cotas, vistas e pranchas; a escolha do que documentar e a revisão técnica continuam com você.</p></details>
-        <details><summary>Como funciona o preço de lançamento?</summary><p>A assinatura anual custa R$ 797. Na condição de lançamento, não alunos pagam R$ 597 no primeiro ano e alunos BIM Coder elegíveis pagam R$ 497, mediante confirmação do e-mail de aluno. Em ambos os casos, a renovação é de R$ 797/ano.</p></details>
+        <details><summary>Como funciona a oferta de fundador?</summary><p>A oferta de fundador garante o plano anual por R$ 49,90/mês ou R$ 497 à vista. Você mantém a renovação por R$ 497/ano enquanto a assinatura permanecer ativa. Se cancelar e voltar depois, será aplicado o preço vigente.</p></details>
         <details><summary>Como recebo o plugin?</summary><p>Depois da confirmação da compra, você recebe as orientações de acesso e ativa o DocFlow usando o mesmo e-mail do checkout.</p></details>
       </div>
     </section>
 
     <section class="final-cta">
-      <div class="container"><span class="eyebrow">Seu próximo projeto</span><h2>Dedique mais tempo ao projeto.<br><span>Resolva as tarefas repetitivas com poucos cliques.</span></h2><a class="button button-primary" href="#planos">Quero documentar em poucos cliques</a><p>7 dias de garantia · Revit 2025 e 2027 · suporte em português</p></div>
+      <div class="container"><span class="eyebrow">Seu próximo projeto</span><h2>Dedique mais tempo ao projeto.<br><span>Resolva as tarefas repetitivas com poucos cliques.</span></h2><a class="button button-primary" href="#planos">Quero documentar em poucos cliques</a><p>7 dias de garantia · Revit 2023 a 2027 · suporte em português</p></div>
     </section>
   </main>
 
   <footer class="site-footer"><div class="container footer-inner"><div><strong>DocFlow ARQ</strong><span>Um produto BIM Coder Tecnologia LTDA</span></div><a href="mailto:contato@bimcoder.net">contato@bimcoder.net</a></div></footer>
 
+  <a class="whatsapp-float" href="https://wa.me/5548988722197" target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M27.4 4.6A15.8 15.8 0 0 0 2.6 23.7L.5 31.5l8-2.1A15.7 15.7 0 0 0 16 31.3h.1A15.8 15.8 0 0 0 27.4 4.6ZM16.1 28.7a13 13 0 0 1-6.6-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5a13.1 13.1 0 1 1 10.8 6Zm7.2-9.8c-.4-.2-2.3-1.1-2.7-1.3-.4-.1-.7-.2-1 .2-.3.4-1 1.3-1.3 1.6-.2.3-.5.3-.9.1-2.4-1.2-4-2.1-5.6-4.8-.4-.7.4-.7 1.2-2.2.1-.3.1-.6 0-.8-.1-.2-1-2.5-1.4-3.4-.4-.9-.8-.8-1-.8h-.9c-.3 0-.8.1-1.2.6-.4.4-1.7 1.6-1.7 4s1.8 4.6 2 4.9c.2.3 3.5 5.3 8.4 7.4 3.1 1.3 4.3 1.4 5.8 1.2.9-.1 2.3-.9 2.6-1.8.3-.9.3-1.7.2-1.8-.1-.2-.5-.3-.9-.5Z"/></svg>
+    <span>Falar pelo WhatsApp</span>
+  </a>
+
+  <dialog id="studentValidationDialog" class="student-validation-dialog">
+    <button class="dialog-close" type="button" aria-label="Fechar">×</button>
+    <span class="eyebrow">Condição para aluno BIM Coder</span>
+    <h2>Confirme seu e-mail de aluno</h2>
+    <p>Digite o mesmo e-mail usado na sua compra pela Hotmart.</p>
+    <form id="studentValidationForm" novalidate>
+      <label for="studentEmail">E-mail usado na Hotmart</label>
+      <input id="studentEmail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="voce@exemplo.com" required>
+      <button class="button button-primary" type="submit" data-student-submit>Validar e continuar</button>
+    </form>
+    <p class="student-validation-status" data-student-status aria-live="polite"></p>
+    <a class="student-support-link" data-student-support href="mailto:contato@bimcoder.net?subject=Validação%20de%20aluno%20DocFlow" hidden>Entrar em contato com o suporte</a>
+  </dialog>
+
   <dialog id="checkoutDialog">
     <button class="dialog-close" type="button" aria-label="Fechar">×</button>
-    <span class="eyebrow">Prévia interna</span><h2>Checkout ainda não conectado</h2>
-    <p>O plano já está pronto na página. Falta apenas inserir o link correspondente da Hotmart antes da publicação.</p>
+    <span class="eyebrow">Plano mensal</span><h2>Checkout mensal em preparação</h2>
+    <p>O checkout dos planos anuais já está disponível. O pagamento mensal será conectado assim que a oferta estiver pronta.</p>
     <button class="button button-primary dialog-ok" type="button">Entendi</button>
   </dialog>
 
-  <script src="comandos.js?v=2"></script>
-  <script src="vendas-videos.js?v=13"></script>
-  <script src="vendas.js?v=23"></script>
-  <script src="vendas-i18n.js?v=6"></script>
+  <script src="vendas-videos.js?v=16"></script>
+  <script src="vendas.js?v=38"></script>
+  <script src="vendas-i18n.js?v=22"></script>
 </body>
 </html>
