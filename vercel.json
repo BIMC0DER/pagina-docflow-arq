@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "docflow-arq.vercel.app"
+        }
+      ],
+      "destination": "https://docflow-arq.bimcoder.net/:path*",
+      "permanent": true
+    }
+  ]
+}
